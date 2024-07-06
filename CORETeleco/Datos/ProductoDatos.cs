@@ -8,69 +8,67 @@ namespace CORETeleco.Datos
 {
     public class ProductoDatos
     {
-        public List<ProductoModel> ListarProductos()
+        public List<ProductoModel> Listar()
         {
-            var listaProductos = new List<ProductoModel>();
-
+            var oLista = new List<ProductoModel>();
             var cn = new Conexion();
 
-            using (var conexion = new SqlConnection(cn.GetcadenaSQL()))
+            using (var conexion = new SqlConnection(cn.getCadenaSQL()))
             {
                 conexion.Open();
-                SqlCommand cmd = new SqlCommand("SP_ListarProductos", conexion); 
+                SqlCommand cmd = new SqlCommand("SP_ListarProductos", conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 using (var dr = cmd.ExecuteReader())
                 {
                     while (dr.Read())
                     {
-                        listaProductos.Add(new ProductoModel
+                        oLista.Add(new ProductoModel()
                         {
-                            IdProducto = Convert.ToInt32(dr["IdProducto"]),
+                            idProducto = Convert.ToInt32(dr["idProducto"]),
                             nombreProducto = dr["nombreProducto"].ToString(),
                             descripcionProducto = dr["descripcionProducto"].ToString(),
                             precioProducto = Convert.ToDecimal(dr["precioProducto"]),
                             disponibilidadProducto = Convert.ToBoolean(dr["disponibilidadProducto"]),
-                            IdCategoriaProducto = Convert.ToInt32(dr["idCategoriaProducto"])  
+                            idCategoriaProducto = Convert.ToInt32(dr["idCategoriaProducto"])
                         });
                     }
                 }
             }
 
-            return listaProductos;
+            return oLista;
         }
 
-        public ProductoModel ObtenerProducto(int IdProducto)
+        public ProductoModel Obtener(int idProducto)
         {
-            var producto = new ProductoModel();
-
+            var oProducto = new ProductoModel();
             var cn = new Conexion();
 
-            using (var conexion = new SqlConnection(cn.GetcadenaSQL()))
+            using (var conexion = new SqlConnection(cn.getCadenaSQL()))
             {
                 conexion.Open();
-                SqlCommand cmd = new SqlCommand("SP_ObtenerProducto", conexion); 
-                cmd.Parameters.AddWithValue("IdProducto", IdProducto);
+                SqlCommand cmd = new SqlCommand("SP_ObtenerProducto", conexion);
+                cmd.Parameters.AddWithValue("idProducto", idProducto);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 using (var dr = cmd.ExecuteReader())
                 {
                     while (dr.Read())
                     {
-                        producto.IdProducto = Convert.ToInt32(dr["IdProducto"]);
-                        producto.nombreProducto = dr["nombreProducto"].ToString();
-                        producto.descripcionProducto = dr["descripcionProducto"].ToString();
-                        producto.precioProducto = Convert.ToDecimal(dr["precioProducto"]);
-                        producto.disponibilidadProducto = Convert.ToBoolean(dr["disponibilidadProducto"]);
-                        producto.IdCategoriaProducto = Convert.ToInt32(dr["idCategoriaProducto"]);
+                        oProducto.idProducto = Convert.ToInt32(dr["idProducto"]);
+                        oProducto.nombreProducto = dr["nombreProducto"].ToString();
+                        oProducto.descripcionProducto = dr["descripcionProducto"].ToString();
+                        oProducto.precioProducto = Convert.ToDecimal(dr["precioProducto"]);
+                        oProducto.disponibilidadProducto = Convert.ToBoolean(dr["disponibilidadProducto"]);
+                        oProducto.idCategoriaProducto = Convert.ToInt32(dr["idCategoriaProducto"]);
                     }
                 }
             }
 
-            return producto;
+            return oProducto;
         }
 
-        public bool InsertarProducto(ProductoModel producto)
+        public bool Guardar(ProductoModel oProducto)
         {
             bool rpta;
 
@@ -78,15 +76,15 @@ namespace CORETeleco.Datos
             {
                 var cn = new Conexion();
 
-                using (var conexion = new SqlConnection(cn.GetcadenaSQL()))
+                using (var conexion = new SqlConnection(cn.getCadenaSQL()))
                 {
                     conexion.Open();
-                    SqlCommand cmd = new SqlCommand("SP_InsertarProducto", conexion); 
-                    cmd.Parameters.AddWithValue("nombreProducto", producto.nombreProducto);
-                    cmd.Parameters.AddWithValue("descripcionProducto", producto.descripcionProducto);
-                    cmd.Parameters.AddWithValue("precioProducto", producto.precioProducto);
-                    cmd.Parameters.AddWithValue("disponibilidadProducto", producto.disponibilidadProducto);
-                    cmd.Parameters.AddWithValue("idCategoriaProducto", producto.IdCategoriaProducto);
+                    SqlCommand cmd = new SqlCommand("SP_GuardarProducto", conexion);
+                    cmd.Parameters.AddWithValue("nombreProducto", oProducto.nombreProducto);
+                    cmd.Parameters.AddWithValue("descripcionProducto", oProducto.descripcionProducto);
+                    cmd.Parameters.AddWithValue("precioProducto", oProducto.precioProducto);
+                    cmd.Parameters.AddWithValue("disponibilidadProducto", oProducto.disponibilidadProducto);
+                    cmd.Parameters.AddWithValue("idCategoriaProducto", oProducto.idCategoriaProducto);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.ExecuteNonQuery();
                 }
@@ -96,13 +94,12 @@ namespace CORETeleco.Datos
             {
                 string error = e.Message;
                 rpta = false;
-                
             }
 
             return rpta;
         }
 
-        public bool ActualizarProducto(ProductoModel producto)
+        public bool Editar(ProductoModel oProducto)
         {
             bool rpta;
 
@@ -110,16 +107,16 @@ namespace CORETeleco.Datos
             {
                 var cn = new Conexion();
 
-                using (var conexion = new SqlConnection(cn.GetcadenaSQL()))
+                using (var conexion = new SqlConnection(cn.getCadenaSQL()))
                 {
                     conexion.Open();
-                    SqlCommand cmd = new SqlCommand("SP_ActualizarProducto", conexion);
-                    cmd.Parameters.AddWithValue("IdProducto", producto.IdProducto);
-                    cmd.Parameters.AddWithValue("nombreProducto", producto.nombreProducto);
-                    cmd.Parameters.AddWithValue("descripcionProducto", producto.descripcionProducto);
-                    cmd.Parameters.AddWithValue("precioProducto", producto.precioProducto);
-                    cmd.Parameters.AddWithValue("disponibilidadProducto", producto.disponibilidadProducto);
-                    cmd.Parameters.AddWithValue("idCategoriaProducto", producto.IdCategoriaProducto);
+                    SqlCommand cmd = new SqlCommand("SP_EditarProducto", conexion);
+                    cmd.Parameters.AddWithValue("idProducto", oProducto.idProducto);
+                    cmd.Parameters.AddWithValue("nombreProducto", oProducto.nombreProducto);
+                    cmd.Parameters.AddWithValue("descripcionProducto", oProducto.descripcionProducto);
+                    cmd.Parameters.AddWithValue("precioProducto", oProducto.precioProducto);
+                    cmd.Parameters.AddWithValue("disponibilidadProducto", oProducto.disponibilidadProducto);
+                    cmd.Parameters.AddWithValue("idCategoriaProducto", oProducto.idCategoriaProducto);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.ExecuteNonQuery();
                 }
@@ -129,13 +126,12 @@ namespace CORETeleco.Datos
             {
                 string error = e.Message;
                 rpta = false;
-                
             }
 
             return rpta;
         }
 
-        public bool EliminarProducto(int IdProducto)
+        public bool Eliminar(int idProducto)
         {
             bool rpta;
 
@@ -143,11 +139,11 @@ namespace CORETeleco.Datos
             {
                 var cn = new Conexion();
 
-                using (var conexion = new SqlConnection(cn.GetcadenaSQL()))
+                using (var conexion = new SqlConnection(cn.getCadenaSQL()))
                 {
                     conexion.Open();
                     SqlCommand cmd = new SqlCommand("SP_EliminarProducto", conexion);
-                    cmd.Parameters.AddWithValue("IdProducto", IdProducto);
+                    cmd.Parameters.AddWithValue("idProducto", idProducto);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.ExecuteNonQuery();
                 }
@@ -157,7 +153,6 @@ namespace CORETeleco.Datos
             {
                 string error = e.Message;
                 rpta = false;
-               
             }
 
             return rpta;

@@ -1,0 +1,51 @@
+﻿@model ProductoModel
+@{
+    ViewData["Title"] = "Guardar Producto";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card">
+    <div class="card-header">
+        Guardar Producto
+    </div>
+    <div class="card-body">
+        <form asp-action="GuardarProducto" asp-controller="Producto" method="post">
+            <div class="mb-3">
+                <label class="form-label">Nombre</label>
+                <input asp-for="nombreProducto" class="form-control" />
+                <span asp-validation-for="nombreProducto" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Descripción</label>
+                <input asp-for="descripcionProducto" class="form-control" />
+                <span asp-validation-for="descripcionProducto" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Precio</label>
+                <input asp-for="precioProducto" class="form-control" />
+                <span asp-validation-for="precioProducto" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Disponibilidad</label>
+                <select asp-for="disponibilidadProducto" class="form-control">
+                    <option value="true">Disponible</option>
+                    <option value="false">No disponible</option>
+                </select>
+                <span asp-validation-for="disponibilidadProducto" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Categoría</label>
+                <select asp-for="idCategoriaProducto" class="form-control">
+                    <option value="">-- Seleccione --</option>
+                    @foreach (var categoria in ViewBag.Categorias)
+                    {
+                        <option value="@categoria.idCategoriaProducto">@categoria.categoriaProducto</option>
+                    }
+                </select>
+                <span asp-validation-for="idCategoriaProducto" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <a asp-action="Listar" asp-controller="Producto" class="btn btn-warning">Volver a la lista</a>
+        </form>
+    </div>
+</div>

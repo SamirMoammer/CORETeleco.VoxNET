@@ -12,11 +12,18 @@
   <ItemGroup>
     <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.12" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="7.0.19" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Datos\" />
+    <None Remove="Views\Servicio\" />
+    <None Remove="Views\Cliente\" />
+    <None Remove="Views\Producto\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Datos\" />
+    <Folder Include="Views\Servicio\" />
+    <Folder Include="Views\Cliente\" />
+    <Folder Include="Views\Producto\" />
   </ItemGroup>
 </Project>

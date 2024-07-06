@@ -8,6 +8,6 @@ namespace CORETeleco.Models
         public int IdRol { get; set; }
 
         [Required]
-        public string nombreRol { get; set; }
+        public string? nombreRol { get; set; }
     }
 }

@@ -8,13 +8,12 @@ namespace CORETeleco.Datos
 {
     public class ServicioDatos
     {
-        public List<ServicioModel> ListarServicios()
+        public List<ServicioModel> Listar()
         {
-            var listaServicios = new List<ServicioModel>();
-
+            var oLista = new List<ServicioModel>();
             var cn = new Conexion();
 
-            using (var conexion = new SqlConnection(cn.GetcadenaSQL()))
+            using (var conexion = new SqlConnection(cn.getCadenaSQL()))
             {
                 conexion.Open();
                 SqlCommand cmd = new SqlCommand("SP_ListarServicios", conexion);
@@ -24,9 +23,9 @@ namespace CORETeleco.Datos
                 {
                     while (dr.Read())
                     {
-                        listaServicios.Add(new ServicioModel
+                        oLista.Add(new ServicioModel()
                         {
-                            IdServicio = Convert.ToInt32(dr["IdServicio"]),
+                            idServicio = Convert.ToInt32(dr["idServicio"]),
                             nombreServicio = dr["nombreServicio"].ToString(),
                             descripcionServicio = dr["descripcionServicio"].ToString(),
                             precioServicio = Convert.ToDecimal(dr["precioServicio"])
@@ -35,38 +34,37 @@ namespace CORETeleco.Datos
                 }
             }
 
-            return listaServicios;
+            return oLista;
         }
 
-        public ServicioModel ObtenerServicio(int IdServicio)
+        public ServicioModel Obtener(int idServicio)
         {
-            var servicio = new ServicioModel();
-
+            var oServicio = new ServicioModel();
             var cn = new Conexion();
 
-            using (var conexion = new SqlConnection(cn.GetcadenaSQL()))
+            using (var conexion = new SqlConnection(cn.getCadenaSQL()))
             {
                 conexion.Open();
                 SqlCommand cmd = new SqlCommand("SP_ObtenerServicio", conexion);
-                cmd.Parameters.AddWithValue("IdServicio", IdServicio);
+                cmd.Parameters.AddWithValue("idServicio", idServicio);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 using (var dr = cmd.ExecuteReader())
                 {
                     while (dr.Read())
                     {
-                        servicio.IdServicio = Convert.ToInt32(dr["IdServicio"]);
-                        servicio.nombreServicio = dr["nombreServicio"].ToString();
-                        servicio.descripcionServicio = dr["descripcionServicio"].ToString();
-                        servicio.precioServicio = Convert.ToDecimal(dr["precioServicio"]);
+                        oServicio.idServicio = Convert.ToInt32(dr["idServicio"]);
+                        oServicio.nombreServicio = dr["nombreServicio"].ToString();
+                        oServicio.descripcionServicio = dr["descripcionServicio"].ToString();
+                        oServicio.precioServicio = Convert.ToDecimal(dr["precioServicio"]);
                     }
                 }
             }
 
-            return servicio;
+            return oServicio;
         }
 
-        public bool InsertarServicio(ServicioModel servicio)
+        public bool Guardar(ServicioModel oServicio)
         {
             bool rpta;
 
@@ -74,13 +72,13 @@ namespace CORETeleco.Datos
             {
                 var cn = new Conexion();
 
-                using (var conexion = new SqlConnection(cn.GetcadenaSQL()))
+                using (var conexion = new SqlConnection(cn.getCadenaSQL()))
                 {
                     conexion.Open();
-                    SqlCommand cmd = new SqlCommand("SP_InsertarServicio", conexion); 
-                    cmd.Parameters.AddWithValue("nombreServicio", servicio.nombreServicio);
-                    cmd.Parameters.AddWithValue("descripcionServicio", servicio.descripcionServicio);
-                    cmd.Parameters.AddWithValue("precioServicio", servicio.precioServicio);
+                    SqlCommand cmd = new SqlCommand("SP_GuardarServicio", conexion);
+                    cmd.Parameters.AddWithValue("nombreServicio", oServicio.nombreServicio);
+                    cmd.Parameters.AddWithValue("descripcionServicio", oServicio.descripcionServicio);
+                    cmd.Parameters.AddWithValue("precioServicio", oServicio.precioServicio);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.ExecuteNonQuery();
                 }
@@ -90,13 +88,12 @@ namespace CORETeleco.Datos
             {
                 string error = e.Message;
                 rpta = false;
-                
             }
 
             return rpta;
         }
 
-        public bool ActualizarServicio(ServicioModel servicio)
+        public bool Editar(ServicioModel oServicio)
         {
             bool rpta;
 
@@ -104,14 +101,14 @@ namespace CORETeleco.Datos
             {
                 var cn = new Conexion();
 
-                using (var conexion = new SqlConnection(cn.GetcadenaSQL()))
+                using (var conexion = new SqlConnection(cn.getCadenaSQL()))
                 {
                     conexion.Open();
-                    SqlCommand cmd = new SqlCommand("SP_ActualizarServicio", conexion); 
-                    cmd.Parameters.AddWithValue("IdServicio", servicio.IdServicio);
-                    cmd.Parameters.AddWithValue("nombreServicio", servicio.nombreServicio);
-                    cmd.Parameters.AddWithValue("descripcionServicio", servicio.descripcionServicio);
-                    cmd.Parameters.AddWithValue("precioServicio", servicio.precioServicio);
+                    SqlCommand cmd = new SqlCommand("SP_EditarServicio", conexion);
+                    cmd.Parameters.AddWithValue("idServicio", oServicio.idServicio);
+                    cmd.Parameters.AddWithValue("nombreServicio", oServicio.nombreServicio);
+                    cmd.Parameters.AddWithValue("descripcionServicio", oServicio.descripcionServicio);
+                    cmd.Parameters.AddWithValue("precioServicio", oServicio.precioServicio);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.ExecuteNonQuery();
                 }
@@ -121,13 +118,12 @@ namespace CORETeleco.Datos
             {
                 string error = e.Message;
                 rpta = false;
-                
             }
 
             return rpta;
         }
 
-        public bool EliminarServicio(int IdServicio)
+        public bool Eliminar(int idServicio)
         {
             bool rpta;
 
@@ -135,11 +131,11 @@ namespace CORETeleco.Datos
             {
                 var cn = new Conexion();
 
-                using (var conexion = new SqlConnection(cn.GetcadenaSQL()))
+                using (var conexion = new SqlConnection(cn.getCadenaSQL()))
                 {
                     conexion.Open();
-                    SqlCommand cmd = new SqlCommand("SP_EliminarServicio", conexion); 
-                    cmd.Parameters.AddWithValue("IdServicio", IdServicio);
+                    SqlCommand cmd = new SqlCommand("SP_EliminarServicio", conexion);
+                    cmd.Parameters.AddWithValue("idServicio", idServicio);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.ExecuteNonQuery();
                 }
@@ -149,7 +145,6 @@ namespace CORETeleco.Datos
             {
                 string error = e.Message;
                 rpta = false;
-             
             }
 
             return rpta;

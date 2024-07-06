@@ -14,7 +14,7 @@ namespace CORETeleco.Datos
 
             var cn = new Conexion();
 
-            using (var conexion = new SqlConnection(cn.GetcadenaSQL()))
+            using (var conexion = new SqlConnection(cn.getCadenaSQL()))
             {
                 conexion.Open();
                 SqlCommand cmd = new SqlCommand("SP_ListarCliente", conexion);
@@ -47,7 +47,7 @@ namespace CORETeleco.Datos
 
             var cn = new Conexion();
 
-            using (var conexion = new SqlConnection(cn.GetcadenaSQL()))
+            using (var conexion = new SqlConnection(cn.getCadenaSQL()))
             {
                 conexion.Open();
                 SqlCommand cmd = new SqlCommand("SP_ObtenerCliente", conexion); 
@@ -80,7 +80,7 @@ namespace CORETeleco.Datos
             {
                 var cn = new Conexion();
 
-                using (var conexion = new SqlConnection(cn.GetcadenaSQL()))
+                using (var conexion = new SqlConnection(cn.getCadenaSQL()))
                 {
                     conexion.Open();
                     SqlCommand cmd = new SqlCommand("SP_InsertarCliente", conexion); 
@@ -113,7 +113,7 @@ namespace CORETeleco.Datos
             {
                 var cn = new Conexion();
 
-                using (var conexion = new SqlConnection(cn.GetcadenaSQL()))
+                using (var conexion = new SqlConnection(cn.getCadenaSQL()))
                 {
                     conexion.Open();
                     SqlCommand cmd = new SqlCommand("SP_ActualizarCliente", conexion); 
@@ -147,7 +147,7 @@ namespace CORETeleco.Datos
             {
                 var cn = new Conexion();
 
-                using (var conexion = new SqlConnection(cn.GetcadenaSQL()))
+                using (var conexion = new SqlConnection(cn.getCadenaSQL()))
                 {
                     conexion.Open();
                     SqlCommand cmd = new SqlCommand("SP_EliminarCliente", conexion); 

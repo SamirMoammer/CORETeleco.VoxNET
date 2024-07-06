@@ -1,0 +1,32 @@
+﻿@model ServicioModel
+@{
+    ViewData["Title"] = "Guardar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card">
+    <div class="card-header">
+        Crear Servicio
+    </div>
+    <div class="card-body">
+        <form asp-action="Guardar" asp-controller="Servicio" method="post">
+            <div class="mb-3">
+                <label class="form-label">Nombre</label>
+                <input asp-for="nombreServicio" type="text" class="form-control">
+                <span asp-validation-for="nombreServicio" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Descripción</label>
+                <input asp-for="descripcionServicio" type="text" class="form-control">
+                <span asp-validation-for="descripcionServicio" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Precio</label>
+                <input asp-for="precioServicio" type="text" class="form-control">
+                <span asp-validation-for="precioServicio" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <a asp-action="Listar" asp-controller="Servicio" class="btn btn-warning">Volver a la lista</a>
+        </form>
+    </div>
+</div>

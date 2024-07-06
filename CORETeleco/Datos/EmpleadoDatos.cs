@@ -14,7 +14,7 @@ namespace CORETeleco.Datos
 
             var cn = new Conexion();
 
-            using (var conexion = new SqlConnection(cn.GetcadenaSQL()))
+            using (var conexion = new SqlConnection(cn.getCadenaSQL()))
             {
                 conexion.Open();
                 SqlCommand cmd = new SqlCommand("SP_ListarEmpleados", conexion); 
@@ -45,7 +45,7 @@ namespace CORETeleco.Datos
 
             var cn = new Conexion();
 
-            using (var conexion = new SqlConnection(cn.GetcadenaSQL()))
+            using (var conexion = new SqlConnection(cn.getCadenaSQL()))
             {
                 conexion.Open();
                 SqlCommand cmd = new SqlCommand("SP_ObtenerEmpleado", conexion); 
@@ -76,7 +76,7 @@ namespace CORETeleco.Datos
             {
                 var cn = new Conexion();
 
-                using (var conexion = new SqlConnection(cn.GetcadenaSQL()))
+                using (var conexion = new SqlConnection(cn.getCadenaSQL()))
                 {
                     conexion.Open();
                     SqlCommand cmd = new SqlCommand("SP_InsertarEmpleado", conexion); 
@@ -107,7 +107,7 @@ namespace CORETeleco.Datos
             {
                 var cn = new Conexion();
 
-                using (var conexion = new SqlConnection(cn.GetcadenaSQL()))
+                using (var conexion = new SqlConnection(cn.getCadenaSQL()))
                 {
                     conexion.Open();
                     SqlCommand cmd = new SqlCommand("SP_ActualizarEmpleado", conexion);
@@ -139,7 +139,7 @@ namespace CORETeleco.Datos
             {
                 var cn = new Conexion();
 
-                using (var conexion = new SqlConnection(cn.GetcadenaSQL()))
+                using (var conexion = new SqlConnection(cn.getCadenaSQL()))
                 {
                     conexion.Open();
                     SqlCommand cmd = new SqlCommand("SP_EliminarEmpleado", conexion); 

@@ -13,7 +13,7 @@ namespace CORETeleco.Models
         public string? direccionCliente { get; set; }
 
         [Required]
-        public string?telefonoCliente { get; set; }
+        public string? telefonoCliente { get; set; }
 
         [Required]
         public string? correoCliente { get; set; }

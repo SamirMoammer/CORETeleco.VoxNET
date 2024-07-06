@@ -1,18 +1,18 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+
 namespace CORETeleco.Models
 {
     public class ServicioModel
     {
-        public int IdServicio { get; set; }
+        public int idServicio { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "El campo Nombre es obligatorio")]
         public string? nombreServicio { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "El campo Descripción es obligatorio")]
         public string? descripcionServicio { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "El campo Precio es obligatorio")]
         public decimal precioServicio { get; set; }
     }
 }

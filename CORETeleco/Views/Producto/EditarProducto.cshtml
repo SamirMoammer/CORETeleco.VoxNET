@@ -1,0 +1,47 @@
+﻿@model ProductoModel
+@{
+    ViewData["Title"] = "Editar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card">
+    <div class="card-header">
+        Editar Producto
+    </div>
+    <div class="card-body">
+        <form asp-action="Editar" asp-controller="Producto" method="post">
+            <input asp-for="idProducto" type="hidden" class="form-control">
+            <div class="mb-3">
+                <label class="form-label">Nombre</label>
+                <input asp-for="nombreProducto" type="text" class="form-control">
+                <span asp-validation-for="nombreProducto" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Descripción</label>
+                <input asp-for="descripcionProducto" type="text" class="form-control">
+                <span asp-validation-for="descripcionProducto" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Precio</label>
+                <input asp-for="precioProducto" type="text" class="form-control">
+                <span asp-validation-for="precioProducto" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Disponibilidad</label>
+                <input asp-for="disponibilidadProducto" type="checkbox" class="form-check-input">
+                <span asp-validation-for="disponibilidadProducto" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Categoría</label>
+                <select asp-for="idCategoriaProducto" class="form-control">
+                    <option value="1">Categoría 1</option>
+                    <option value="2">Categoría 2</option>
+                </select>
+                <span asp-validation-for="idCategoriaProducto" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <a asp-action="Listar" asp-controller="Producto" class="btn btn-warning">Volver a la lista</a>
+        </form>
+    </div>
+</div>
+

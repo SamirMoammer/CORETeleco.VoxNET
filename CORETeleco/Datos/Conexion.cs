@@ -1,25 +1,25 @@
 ﻿using System.Data.SqlClient;
-using System.Globalization;
+
 namespace CORETeleco.Datos
 {
-	public class Conexion
-	{
-		private string cadenaSQL = string.Empty;
+    public class Conexion
+    {
+        private string cadenaSQL = string.Empty;
 
-		public Conexion() {
+        public Conexion()
+        {
 
 
-			var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json").Build();
+            var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json").Build();
 
-			cadenaSQL = builder.GetSection("ConnectionStrings:cadenaSQL").Value;
-		}
+            cadenaSQL = builder.GetSection("ConnectionStrings:CadenaSQL").Value ?? "";
+        }
 
-		public string GetcadenaSQL()
+        public string getCadenaSQL()
+        {
+            return cadenaSQL;
+        }
 
-		{
 
-			return cadenaSQL;
-		}
-	}
+    }
 }
-
