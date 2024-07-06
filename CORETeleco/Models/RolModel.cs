@@ -1,13 +1,12 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace CORETeleco.Models
 {
     public class RolModel
     {
-        public int IdRol { get; set; }
+        public int idRol { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "El campo Nombre es obligatorio")]
         public string? nombreRol { get; set; }
     }
 }

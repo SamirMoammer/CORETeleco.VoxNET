@@ -8,25 +8,24 @@ namespace CORETeleco.Datos
 {
     public class ClienteDatos
     {
-        public List<ClienteModel> ListarClientes()
+        public List<ClienteModel> Listar()
         {
-            var listaClientes = new List<ClienteModel>();
-
+            var oLista = new List<ClienteModel>();
             var cn = new Conexion();
 
             using (var conexion = new SqlConnection(cn.getCadenaSQL()))
             {
                 conexion.Open();
-                SqlCommand cmd = new SqlCommand("SP_ListarCliente", conexion);
+                SqlCommand cmd = new SqlCommand("SP_ListarClientes", conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 using (var dr = cmd.ExecuteReader())
                 {
                     while (dr.Read())
                     {
-                        listaClientes.Add(new ClienteModel
+                        oLista.Add(new ClienteModel()
                         {
-                            IdCliente = Convert.ToInt32(dr["IdCliente"]),
+                            idCliente = Convert.ToInt32(dr["idCliente"]),
                             nombreCliente = dr["nombreCliente"].ToString(),
                             direccionCliente = dr["direccionCliente"].ToString(),
                             telefonoCliente = dr["telefonoCliente"].ToString(),
@@ -38,41 +37,40 @@ namespace CORETeleco.Datos
                 }
             }
 
-            return listaClientes;
+            return oLista;
         }
 
-        public ClienteModel ObtenerCliente(int IdCliente)
+        public ClienteModel Obtener(int idCliente)
         {
-            var cliente = new ClienteModel();
-
+            var oCliente = new ClienteModel();
             var cn = new Conexion();
 
             using (var conexion = new SqlConnection(cn.getCadenaSQL()))
             {
                 conexion.Open();
-                SqlCommand cmd = new SqlCommand("SP_ObtenerCliente", conexion); 
-                cmd.Parameters.AddWithValue("IdCliente", IdCliente);
+                SqlCommand cmd = new SqlCommand("SP_ObtenerCliente", conexion);
+                cmd.Parameters.AddWithValue("idCliente", idCliente);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 using (var dr = cmd.ExecuteReader())
                 {
                     while (dr.Read())
                     {
-                        cliente.IdCliente = Convert.ToInt32(dr["IdCliente"]);
-                        cliente.nombreCliente = dr["nombreCliente"].ToString();
-                        cliente.direccionCliente = dr["direccionCliente"].ToString();
-                        cliente.telefonoCliente = dr["telefonoCliente"].ToString();
-                        cliente.correoCliente = dr["correoCliente"].ToString();
-                        cliente.cedulaCliente = dr["cedulaCliente"].ToString();
-                        cliente.passwordCliente = dr["passwordCliente"].ToString();
+                        oCliente.idCliente = Convert.ToInt32(dr["idCliente"]);
+                        oCliente.nombreCliente = dr["nombreCliente"].ToString();
+                        oCliente.direccionCliente = dr["direccionCliente"].ToString();
+                        oCliente.telefonoCliente = dr["telefonoCliente"].ToString();
+                        oCliente.correoCliente = dr["correoCliente"].ToString();
+                        oCliente.cedulaCliente = dr["cedulaCliente"].ToString();
+                        oCliente.passwordCliente = dr["passwordCliente"].ToString();
                     }
                 }
             }
 
-            return cliente;
+            return oCliente;
         }
 
-        public bool InsertarCliente(ClienteModel cliente)
+        public bool Guardar(ClienteModel oCliente)
         {
             bool rpta;
 
@@ -83,13 +81,13 @@ namespace CORETeleco.Datos
                 using (var conexion = new SqlConnection(cn.getCadenaSQL()))
                 {
                     conexion.Open();
-                    SqlCommand cmd = new SqlCommand("SP_InsertarCliente", conexion); 
-                    cmd.Parameters.AddWithValue("nombreCliente", cliente.nombreCliente);
-                    cmd.Parameters.AddWithValue("direccionCliente", cliente.direccionCliente);
-                    cmd.Parameters.AddWithValue("telefonoCliente", cliente.telefonoCliente);
-                    cmd.Parameters.AddWithValue("correoCliente", cliente.correoCliente);
-                    cmd.Parameters.AddWithValue("cedulaCliente", cliente.cedulaCliente);
-                    cmd.Parameters.AddWithValue("passwordCliente", cliente.passwordCliente);
+                    SqlCommand cmd = new SqlCommand("SP_GuardarCliente", conexion);
+                    cmd.Parameters.AddWithValue("nombreCliente", oCliente.nombreCliente);
+                    cmd.Parameters.AddWithValue("direccionCliente", oCliente.direccionCliente);
+                    cmd.Parameters.AddWithValue("telefonoCliente", oCliente.telefonoCliente);
+                    cmd.Parameters.AddWithValue("correoCliente", oCliente.correoCliente);
+                    cmd.Parameters.AddWithValue("cedulaCliente", oCliente.cedulaCliente);
+                    cmd.Parameters.AddWithValue("passwordCliente", oCliente.passwordCliente);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.ExecuteNonQuery();
                 }
@@ -99,13 +97,12 @@ namespace CORETeleco.Datos
             {
                 string error = e.Message;
                 rpta = false;
-               
             }
 
             return rpta;
         }
 
-        public bool ActualizarCliente(ClienteModel cliente)
+        public bool Editar(ClienteModel oCliente)
         {
             bool rpta;
 
@@ -116,14 +113,14 @@ namespace CORETeleco.Datos
                 using (var conexion = new SqlConnection(cn.getCadenaSQL()))
                 {
                     conexion.Open();
-                    SqlCommand cmd = new SqlCommand("SP_ActualizarCliente", conexion); 
-                    cmd.Parameters.AddWithValue("IdCliente", cliente.IdCliente);
-                    cmd.Parameters.AddWithValue("nombreCliente", cliente.nombreCliente);
-                    cmd.Parameters.AddWithValue("direccionCliente", cliente.direccionCliente);
-                    cmd.Parameters.AddWithValue("telefonoCliente", cliente.telefonoCliente);
-                    cmd.Parameters.AddWithValue("correoCliente", cliente.correoCliente);
-                    cmd.Parameters.AddWithValue("cedulaCliente", cliente.cedulaCliente);
-                    cmd.Parameters.AddWithValue("passwordCliente", cliente.passwordCliente);
+                    SqlCommand cmd = new SqlCommand("SP_EditarCliente", conexion);
+                    cmd.Parameters.AddWithValue("idCliente", oCliente.idCliente);
+                    cmd.Parameters.AddWithValue("nombreCliente", oCliente.nombreCliente);
+                    cmd.Parameters.AddWithValue("direccionCliente", oCliente.direccionCliente);
+                    cmd.Parameters.AddWithValue("telefonoCliente", oCliente.telefonoCliente);
+                    cmd.Parameters.AddWithValue("correoCliente", oCliente.correoCliente);
+                    cmd.Parameters.AddWithValue("cedulaCliente", oCliente.cedulaCliente);
+                    cmd.Parameters.AddWithValue("passwordCliente", oCliente.passwordCliente);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.ExecuteNonQuery();
                 }
@@ -133,13 +130,12 @@ namespace CORETeleco.Datos
             {
                 string error = e.Message;
                 rpta = false;
-                
             }
 
             return rpta;
         }
 
-        public bool EliminarCliente(int IdCliente)
+        public bool Eliminar(int idCliente)
         {
             bool rpta;
 
@@ -150,8 +146,8 @@ namespace CORETeleco.Datos
                 using (var conexion = new SqlConnection(cn.getCadenaSQL()))
                 {
                     conexion.Open();
-                    SqlCommand cmd = new SqlCommand("SP_EliminarCliente", conexion); 
-                    cmd.Parameters.AddWithValue("IdCliente", IdCliente);
+                    SqlCommand cmd = new SqlCommand("SP_EliminarCliente", conexion);
+                    cmd.Parameters.AddWithValue("idCliente", idCliente);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.ExecuteNonQuery();
                 }
@@ -161,7 +157,6 @@ namespace CORETeleco.Datos
             {
                 string error = e.Message;
                 rpta = false;
-                
             }
 
             return rpta;

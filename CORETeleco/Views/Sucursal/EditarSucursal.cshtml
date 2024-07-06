@@ -1,0 +1,33 @@
+﻿@model SucursalModel
+@{
+    ViewData["Title"] = "Editar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card">
+    <div class="card-header">
+        Editar Sucursal
+    </div>
+    <div class="card-body">
+        <form asp-action="Editar" asp-controller="Sucursal" method="post">
+            <input asp-for="idSucursal" type="hidden" class="form-control">
+            <div class="mb-3">
+                <label class="form-label">Nombre</label>
+                <input asp-for="nombreSucursal" type="text" class="form-control">
+                <span asp-validation-for="nombreSucursal" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Dirección</label>
+                <input asp-for="direccionSucursal" type="text" class="form-control">
+                <span asp-validation-for="direccionSucursal" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Teléfono</label>
+                <input asp-for="telefonoSucursal" type="text" class="form-control">
+                <span asp-validation-for="telefonoSucursal" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <a asp-action="Listar" asp-controller="Sucursal" class="btn btn-warning">Volver a la lista</a>
+        </form>
+    </div>
+</div>

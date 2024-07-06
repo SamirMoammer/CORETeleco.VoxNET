@@ -4,29 +4,25 @@ using System.Data;
 
 namespace CORETeleco.Datos
 {
-    public class EmpleadoDatos
+    public class RolDatos
     {
-        public List<EmpleadoModel> Listar()
+        public List<RolModel> Listar()
         {
-            var oLista = new List<EmpleadoModel>();
+            var oLista = new List<RolModel>();
             var cn = new Conexion();
 
             using (var conexion = new SqlConnection(cn.getCadenaSQL()))
             {
                 conexion.Open();
-                SqlCommand cmd = new SqlCommand("SP_ListarEmpleados", conexion);
+                SqlCommand cmd = new SqlCommand("SP_ListarRoles", conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 using (var dr = cmd.ExecuteReader())
                 {
                     while (dr.Read())
                     {
-                        oLista.Add(new EmpleadoModel()
+                        oLista.Add(new RolModel()
                         {
-                            idEmpleado = Convert.ToInt32(dr["idEmpleado"]),
-                            nombreEmpleado = dr["nombreEmpleado"].ToString(),
-                            apellidoEmpleado = dr["apellidoEmpleado"].ToString(),
-                            passwordEmpleado = dr["passwordEmpleado"].ToString(),
                             idRol = Convert.ToInt32(dr["idRol"]),
                             nombreRol = dr["nombreRol"].ToString()
                         });
@@ -37,36 +33,32 @@ namespace CORETeleco.Datos
             return oLista;
         }
 
-        public EmpleadoModel Obtener(int idEmpleado)
+        public RolModel Obtener(int idRol)
         {
-            var oEmpleado = new EmpleadoModel();
+            var oRol = new RolModel();
             var cn = new Conexion();
 
             using (var conexion = new SqlConnection(cn.getCadenaSQL()))
             {
                 conexion.Open();
-                SqlCommand cmd = new SqlCommand("SP_ObtenerEmpleado", conexion);
-                cmd.Parameters.AddWithValue("idEmpleado", idEmpleado);
+                SqlCommand cmd = new SqlCommand("SP_ObtenerRol", conexion);
+                cmd.Parameters.AddWithValue("idRol", idRol);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 using (var dr = cmd.ExecuteReader())
                 {
                     while (dr.Read())
                     {
-                        oEmpleado.idEmpleado = Convert.ToInt32(dr["idEmpleado"]);
-                        oEmpleado.nombreEmpleado = dr["nombreEmpleado"].ToString();
-                        oEmpleado.apellidoEmpleado = dr["apellidoEmpleado"].ToString();
-                        oEmpleado.passwordEmpleado = dr["passwordEmpleado"].ToString();
-                        oEmpleado.idRol = Convert.ToInt32(dr["idRol"]);
-                        oEmpleado.nombreRol = dr["nombreRol"].ToString();
+                        oRol.idRol = Convert.ToInt32(dr["idRol"]);
+                        oRol.nombreRol = dr["nombreRol"].ToString();
                     }
                 }
             }
 
-            return oEmpleado;
+            return oRol;
         }
 
-        public bool Guardar(EmpleadoModel oEmpleado)
+        public bool Guardar(RolModel oRol)
         {
             bool rpta;
 
@@ -77,11 +69,8 @@ namespace CORETeleco.Datos
                 using (var conexion = new SqlConnection(cn.getCadenaSQL()))
                 {
                     conexion.Open();
-                    SqlCommand cmd = new SqlCommand("SP_GuardarEmpleado", conexion);
-                    cmd.Parameters.AddWithValue("nombreEmpleado", oEmpleado.nombreEmpleado);
-                    cmd.Parameters.AddWithValue("apellidoEmpleado", oEmpleado.apellidoEmpleado);
-                    cmd.Parameters.AddWithValue("passwordEmpleado", oEmpleado.passwordEmpleado);
-                    cmd.Parameters.AddWithValue("idRol", oEmpleado.idRol);
+                    SqlCommand cmd = new SqlCommand("SP_GuardarRol", conexion);
+                    cmd.Parameters.AddWithValue("nombreRol", oRol.nombreRol);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.ExecuteNonQuery();
                 }
@@ -96,7 +85,7 @@ namespace CORETeleco.Datos
             return rpta;
         }
 
-        public bool Editar(EmpleadoModel oEmpleado)
+        public bool Editar(RolModel oRol)
         {
             bool rpta;
 
@@ -107,12 +96,9 @@ namespace CORETeleco.Datos
                 using (var conexion = new SqlConnection(cn.getCadenaSQL()))
                 {
                     conexion.Open();
-                    SqlCommand cmd = new SqlCommand("SP_EditarEmpleado", conexion);
-                    cmd.Parameters.AddWithValue("idEmpleado", oEmpleado.idEmpleado);
-                    cmd.Parameters.AddWithValue("nombreEmpleado", oEmpleado.nombreEmpleado);
-                    cmd.Parameters.AddWithValue("apellidoEmpleado", oEmpleado.apellidoEmpleado);
-                    cmd.Parameters.AddWithValue("passwordEmpleado", oEmpleado.passwordEmpleado);
-                    cmd.Parameters.AddWithValue("idRol", oEmpleado.idRol);
+                    SqlCommand cmd = new SqlCommand("SP_EditarRol", conexion);
+                    cmd.Parameters.AddWithValue("idRol", oRol.idRol);
+                    cmd.Parameters.AddWithValue("nombreRol", oRol.nombreRol);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.ExecuteNonQuery();
                 }
@@ -127,7 +113,7 @@ namespace CORETeleco.Datos
             return rpta;
         }
 
-        public bool Eliminar(int idEmpleado)
+        public bool Eliminar(int idRol)
         {
             bool rpta;
 
@@ -138,8 +124,8 @@ namespace CORETeleco.Datos
                 using (var conexion = new SqlConnection(cn.getCadenaSQL()))
                 {
                     conexion.Open();
-                    SqlCommand cmd = new SqlCommand("SP_EliminarEmpleado", conexion);
-                    cmd.Parameters.AddWithValue("idEmpleado", idEmpleado);
+                    SqlCommand cmd = new SqlCommand("SP_EliminarRol", conexion);
+                    cmd.Parameters.AddWithValue("idRol", idRol);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.ExecuteNonQuery();
                 }

@@ -1,19 +1,18 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+
 namespace CORETeleco.Models
 {
     public class SucursalModel
     {
-        public int IdSucursal { get; set; }
+        public int idSucursal { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "El campo Nombre es obligatorio")]
         public string? nombreSucursal { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "El campo Dirección es obligatorio")]
         public string? direccionSucursal { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "El campo Teléfono es obligatorio")]
         public string? telefonoSucursal { get; set; }
     }
-
 }

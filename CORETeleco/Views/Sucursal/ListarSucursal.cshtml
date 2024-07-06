@@ -1,0 +1,39 @@
+﻿@model List<CORETeleco.Models.SucursalModel>
+@{
+    ViewData["Title"] = "Listar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card">
+    <div class="card-header">
+        Lista de Sucursales
+    </div>
+    <div class="card-body">
+        <a asp-action="Guardar" asp-controller="Sucursal" class="btn btn-success"><i class="bi bi-plus-circle"></i> Crear Nuevo</a>
+        <hr />
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Dirección</th>
+                    <th>Teléfono</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.nombreSucursal</td>
+                        <td>@item.direccionSucursal</td>
+                        <td>@item.telefonoSucursal</td>
+                        <td>
+                            <a asp-action="Editar" asp-controller="Sucursal" class="btn btn-primary btn-sm" asp-route-idSucursal="@item.idSucursal">Editar</a>
+                            <a asp-action="Eliminar" asp-controller="Sucursal" class="btn btn-danger btn-sm" asp-route-idSucursal="@item.idSucursal">Eliminar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

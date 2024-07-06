@@ -1,12 +1,12 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+
 namespace CORETeleco.Models
 {
     public class CategoriaModel
     {
-        public int IdCategoriaProducto { get; set; }
+        public int idCategoriaProducto { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "El campo Categoría es obligatorio")]
         public string? categoriaProducto { get; set; }
     }
 }

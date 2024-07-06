@@ -1,0 +1,23 @@
+﻿@model ComprobanteModel
+@{
+    ViewData["Title"] = "Editar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card">
+    <div class="card-header">
+        Editar Comprobante
+    </div>
+    <div class="card-body">
+        <form asp-action="Editar" asp-controller="Comprobante" method="post">
+            <input asp-for="idTipoComprobante" type="hidden" class="form-control">
+            <div class="mb-3">
+                <label class="form-label">Tipo de Comprobante</label>
+                <input asp-for="tipoComprobante" type="text" class="form-control">
+                <span asp-validation-for="tipoComprobante" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <a asp-action="Listar" asp-controller="Comprobante" class="btn btn-warning">Volver a la lista</a>
+        </form>
+    </div>
+</div>

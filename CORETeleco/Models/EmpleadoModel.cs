@@ -1,20 +1,24 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+
 namespace CORETeleco.Models
 {
     public class EmpleadoModel
     {
-        public int IdEmpleado { get; set; }
+        public int idEmpleado { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "El campo Nombre es obligatorio")]
         public string? nombreEmpleado { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "El campo Apellido es obligatorio")]
         public string? apellidoEmpleado { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "El campo Password es obligatorio")]
+        [DataType(DataType.Password)]
         public string? passwordEmpleado { get; set; }
 
-        public int IdRol { get; set; }
+        [Required(ErrorMessage = "El campo Rol es obligatorio")]
+        public int idRol { get; set; }
+
+        public string? nombreRol { get; set; } // Para mostrar el nombre del rol
     }
 }

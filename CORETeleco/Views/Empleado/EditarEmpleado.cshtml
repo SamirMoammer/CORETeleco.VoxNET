@@ -1,0 +1,42 @@
+﻿@model EmpleadoModel
+@{
+    ViewData["Title"] = "Editar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card">
+    <div class="card-header">
+        Editar Empleado
+    </div>
+    <div class="card-body">
+        <form asp-action="Editar" asp-controller="Empleado" method="post">
+            <input asp-for="idEmpleado" type="hidden" class="form-control">
+            <div class="mb-3">
+                <label class="form-label">Nombre</label>
+                <input asp-for="nombreEmpleado" type="text" class="form-control">
+                <span asp-validation-for="nombreEmpleado" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Apellido</label>
+                <input asp-for="apellidoEmpleado" type="text" class="form-control">
+                <span asp-validation-for="apellidoEmpleado" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Password</label>
+                <input asp-for="passwordEmpleado" type="password" class="form-control">
+                <span asp-validation-for="passwordEmpleado" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Rol</label>
+                <select asp-for="idRol" class="form-control">
+                    <option value="">Seleccionar</option>
+                    <!-- Opciones de roles -->
+                </select>
+                <span asp-validation-for="idRol" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <a asp-action="Listar" asp-controller="Empleado" class="btn btn-warning">Volver a la lista</a>
+        </form>
+    </div>
+</div>
+

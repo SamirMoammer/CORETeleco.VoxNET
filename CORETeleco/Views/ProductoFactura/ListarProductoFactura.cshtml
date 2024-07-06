@@ -1,0 +1,40 @@
+﻿@model List<CORETeleco.Models.ProductoFacturaModel>
+@{
+    ViewData["Title"] = "Productos de la Factura";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card">
+    <div class="card-header">
+        Productos de la Factura
+    </div>
+    <div class="card-body">
+        <a asp-action="Agregar" asp-controller="ProductoFactura" class="btn btn-success"><i class="bi bi-plus-circle"></i> Agregar Nuevo Producto</a>
+        <hr />
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID Producto</th>
+                    <th>Cantidad</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.idProducto</td>
+                        <td>@item.cantidad</td>
+                        <td>
+                            <form asp-action="Eliminar" asp-controller="ProductoFactura" method="post">
+                                <input type="hidden" name="idFactura" value="@item.idFactura" />
+                                <input type="hidden" name="idProducto" value="@item.idProducto" />
+                                <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

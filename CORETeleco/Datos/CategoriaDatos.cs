@@ -4,31 +4,27 @@ using System.Data;
 
 namespace CORETeleco.Datos
 {
-    public class EmpleadoDatos
+    public class CategoriaDatos
     {
-        public List<EmpleadoModel> Listar()
+        public List<CategoriaModel> Listar()
         {
-            var oLista = new List<EmpleadoModel>();
+            var oLista = new List<CategoriaModel>();
             var cn = new Conexion();
 
             using (var conexion = new SqlConnection(cn.getCadenaSQL()))
             {
                 conexion.Open();
-                SqlCommand cmd = new SqlCommand("SP_ListarEmpleados", conexion);
+                SqlCommand cmd = new SqlCommand("SP_ListarCategorias", conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 using (var dr = cmd.ExecuteReader())
                 {
                     while (dr.Read())
                     {
-                        oLista.Add(new EmpleadoModel()
+                        oLista.Add(new CategoriaModel()
                         {
-                            idEmpleado = Convert.ToInt32(dr["idEmpleado"]),
-                            nombreEmpleado = dr["nombreEmpleado"].ToString(),
-                            apellidoEmpleado = dr["apellidoEmpleado"].ToString(),
-                            passwordEmpleado = dr["passwordEmpleado"].ToString(),
-                            idRol = Convert.ToInt32(dr["idRol"]),
-                            nombreRol = dr["nombreRol"].ToString()
+                            idCategoriaProducto = Convert.ToInt32(dr["idCategoriaProducto"]),
+                            categoriaProducto = dr["categoriaProducto"].ToString()
                         });
                     }
                 }
@@ -37,36 +33,32 @@ namespace CORETeleco.Datos
             return oLista;
         }
 
-        public EmpleadoModel Obtener(int idEmpleado)
+        public CategoriaModel Obtener(int idCategoriaProducto)
         {
-            var oEmpleado = new EmpleadoModel();
+            var oCategoria = new CategoriaModel();
             var cn = new Conexion();
 
             using (var conexion = new SqlConnection(cn.getCadenaSQL()))
             {
                 conexion.Open();
-                SqlCommand cmd = new SqlCommand("SP_ObtenerEmpleado", conexion);
-                cmd.Parameters.AddWithValue("idEmpleado", idEmpleado);
+                SqlCommand cmd = new SqlCommand("SP_ObtenerCategoria", conexion);
+                cmd.Parameters.AddWithValue("idCategoriaProducto", idCategoriaProducto);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 using (var dr = cmd.ExecuteReader())
                 {
                     while (dr.Read())
                     {
-                        oEmpleado.idEmpleado = Convert.ToInt32(dr["idEmpleado"]);
-                        oEmpleado.nombreEmpleado = dr["nombreEmpleado"].ToString();
-                        oEmpleado.apellidoEmpleado = dr["apellidoEmpleado"].ToString();
-                        oEmpleado.passwordEmpleado = dr["passwordEmpleado"].ToString();
-                        oEmpleado.idRol = Convert.ToInt32(dr["idRol"]);
-                        oEmpleado.nombreRol = dr["nombreRol"].ToString();
+                        oCategoria.idCategoriaProducto = Convert.ToInt32(dr["idCategoriaProducto"]);
+                        oCategoria.categoriaProducto = dr["categoriaProducto"].ToString();
                     }
                 }
             }
 
-            return oEmpleado;
+            return oCategoria;
         }
 
-        public bool Guardar(EmpleadoModel oEmpleado)
+        public bool Guardar(CategoriaModel oCategoria)
         {
             bool rpta;
 
@@ -77,11 +69,8 @@ namespace CORETeleco.Datos
                 using (var conexion = new SqlConnection(cn.getCadenaSQL()))
                 {
                     conexion.Open();
-                    SqlCommand cmd = new SqlCommand("SP_GuardarEmpleado", conexion);
-                    cmd.Parameters.AddWithValue("nombreEmpleado", oEmpleado.nombreEmpleado);
-                    cmd.Parameters.AddWithValue("apellidoEmpleado", oEmpleado.apellidoEmpleado);
-                    cmd.Parameters.AddWithValue("passwordEmpleado", oEmpleado.passwordEmpleado);
-                    cmd.Parameters.AddWithValue("idRol", oEmpleado.idRol);
+                    SqlCommand cmd = new SqlCommand("SP_GuardarCategoria", conexion);
+                    cmd.Parameters.AddWithValue("categoriaProducto", oCategoria.categoriaProducto);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.ExecuteNonQuery();
                 }
@@ -96,7 +85,7 @@ namespace CORETeleco.Datos
             return rpta;
         }
 
-        public bool Editar(EmpleadoModel oEmpleado)
+        public bool Editar(CategoriaModel oCategoria)
         {
             bool rpta;
 
@@ -107,12 +96,9 @@ namespace CORETeleco.Datos
                 using (var conexion = new SqlConnection(cn.getCadenaSQL()))
                 {
                     conexion.Open();
-                    SqlCommand cmd = new SqlCommand("SP_EditarEmpleado", conexion);
-                    cmd.Parameters.AddWithValue("idEmpleado", oEmpleado.idEmpleado);
-                    cmd.Parameters.AddWithValue("nombreEmpleado", oEmpleado.nombreEmpleado);
-                    cmd.Parameters.AddWithValue("apellidoEmpleado", oEmpleado.apellidoEmpleado);
-                    cmd.Parameters.AddWithValue("passwordEmpleado", oEmpleado.passwordEmpleado);
-                    cmd.Parameters.AddWithValue("idRol", oEmpleado.idRol);
+                    SqlCommand cmd = new SqlCommand("SP_EditarCategoria", conexion);
+                    cmd.Parameters.AddWithValue("idCategoriaProducto", oCategoria.idCategoriaProducto);
+                    cmd.Parameters.AddWithValue("categoriaProducto", oCategoria.categoriaProducto);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.ExecuteNonQuery();
                 }
@@ -127,7 +113,7 @@ namespace CORETeleco.Datos
             return rpta;
         }
 
-        public bool Eliminar(int idEmpleado)
+        public bool Eliminar(int idCategoriaProducto)
         {
             bool rpta;
 
@@ -138,8 +124,8 @@ namespace CORETeleco.Datos
                 using (var conexion = new SqlConnection(cn.getCadenaSQL()))
                 {
                     conexion.Open();
-                    SqlCommand cmd = new SqlCommand("SP_EliminarEmpleado", conexion);
-                    cmd.Parameters.AddWithValue("idEmpleado", idEmpleado);
+                    SqlCommand cmd = new SqlCommand("SP_EliminarCategoria", conexion);
+                    cmd.Parameters.AddWithValue("idCategoriaProducto", idCategoriaProducto);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.ExecuteNonQuery();
                 }

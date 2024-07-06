@@ -1,0 +1,47 @@
+﻿@model List<CORETeleco.Models.ContratoModel>
+@{
+    ViewData["Title"] = "Listar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card">
+    <div class="card-header">
+        Lista de Contratos
+    </div>
+    <div class="card-body">
+        <a asp-action="Guardar" asp-controller="Contrato" class="btn btn-success"><i class="bi bi-plus-circle"></i> Crear Nuevo</a>
+        <hr />
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID Contrato</th>
+                    <th>Fecha Inicio</th>
+                    <th>Fecha Fin</th>
+                    <th>Descripción</th>
+                    <th>Estado</th>
+                    <th>Cliente</th>
+                    <th>Servicio</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.idContrato</td>
+                        <td>@item.fechaInicioContrato.ToString("yyyy-MM-dd")</td>
+                        <td>@item.fechaFinContrato.ToString("yyyy-MM-dd")</td>
+                        <td>@item.descripcionContrato</td>
+                        <td>@(item.estadoContrato ? "Activo" : "Inactivo")</td>
+                        <td>@item.idCliente</td>
+                        <td>@item.idServicio</td>
+                        <td>
+                            <a asp-action="Editar" asp-controller="Contrato" class="btn btn-primary btn-sm" asp-route-idContrato="@item.idContrato">Editar</a>
+                            <a asp-action="Eliminar" asp-controller="Contrato" class="btn btn-danger btn-sm" asp-route-idContrato="@item.idContrato">Eliminar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

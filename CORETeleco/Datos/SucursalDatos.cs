@@ -4,31 +4,29 @@ using System.Data;
 
 namespace CORETeleco.Datos
 {
-    public class EmpleadoDatos
+    public class SucursalDatos
     {
-        public List<EmpleadoModel> Listar()
+        public List<SucursalModel> Listar()
         {
-            var oLista = new List<EmpleadoModel>();
+            var oLista = new List<SucursalModel>();
             var cn = new Conexion();
 
             using (var conexion = new SqlConnection(cn.getCadenaSQL()))
             {
                 conexion.Open();
-                SqlCommand cmd = new SqlCommand("SP_ListarEmpleados", conexion);
+                SqlCommand cmd = new SqlCommand("SP_ListarSucursales", conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 using (var dr = cmd.ExecuteReader())
                 {
                     while (dr.Read())
                     {
-                        oLista.Add(new EmpleadoModel()
+                        oLista.Add(new SucursalModel()
                         {
-                            idEmpleado = Convert.ToInt32(dr["idEmpleado"]),
-                            nombreEmpleado = dr["nombreEmpleado"].ToString(),
-                            apellidoEmpleado = dr["apellidoEmpleado"].ToString(),
-                            passwordEmpleado = dr["passwordEmpleado"].ToString(),
-                            idRol = Convert.ToInt32(dr["idRol"]),
-                            nombreRol = dr["nombreRol"].ToString()
+                            idSucursal = Convert.ToInt32(dr["idSucursal"]),
+                            nombreSucursal = dr["nombreSucursal"].ToString(),
+                            direccionSucursal = dr["direccionSucursal"].ToString(),
+                            telefonoSucursal = dr["telefonoSucursal"].ToString()
                         });
                     }
                 }
@@ -37,36 +35,34 @@ namespace CORETeleco.Datos
             return oLista;
         }
 
-        public EmpleadoModel Obtener(int idEmpleado)
+        public SucursalModel Obtener(int idSucursal)
         {
-            var oEmpleado = new EmpleadoModel();
+            var oSucursal = new SucursalModel();
             var cn = new Conexion();
 
             using (var conexion = new SqlConnection(cn.getCadenaSQL()))
             {
                 conexion.Open();
-                SqlCommand cmd = new SqlCommand("SP_ObtenerEmpleado", conexion);
-                cmd.Parameters.AddWithValue("idEmpleado", idEmpleado);
+                SqlCommand cmd = new SqlCommand("SP_ObtenerSucursal", conexion);
+                cmd.Parameters.AddWithValue("idSucursal", idSucursal);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 using (var dr = cmd.ExecuteReader())
                 {
                     while (dr.Read())
                     {
-                        oEmpleado.idEmpleado = Convert.ToInt32(dr["idEmpleado"]);
-                        oEmpleado.nombreEmpleado = dr["nombreEmpleado"].ToString();
-                        oEmpleado.apellidoEmpleado = dr["apellidoEmpleado"].ToString();
-                        oEmpleado.passwordEmpleado = dr["passwordEmpleado"].ToString();
-                        oEmpleado.idRol = Convert.ToInt32(dr["idRol"]);
-                        oEmpleado.nombreRol = dr["nombreRol"].ToString();
+                        oSucursal.idSucursal = Convert.ToInt32(dr["idSucursal"]);
+                        oSucursal.nombreSucursal = dr["nombreSucursal"].ToString();
+                        oSucursal.direccionSucursal = dr["direccionSucursal"].ToString();
+                        oSucursal.telefonoSucursal = dr["telefonoSucursal"].ToString();
                     }
                 }
             }
 
-            return oEmpleado;
+            return oSucursal;
         }
 
-        public bool Guardar(EmpleadoModel oEmpleado)
+        public bool Guardar(SucursalModel oSucursal)
         {
             bool rpta;
 
@@ -77,11 +73,10 @@ namespace CORETeleco.Datos
                 using (var conexion = new SqlConnection(cn.getCadenaSQL()))
                 {
                     conexion.Open();
-                    SqlCommand cmd = new SqlCommand("SP_GuardarEmpleado", conexion);
-                    cmd.Parameters.AddWithValue("nombreEmpleado", oEmpleado.nombreEmpleado);
-                    cmd.Parameters.AddWithValue("apellidoEmpleado", oEmpleado.apellidoEmpleado);
-                    cmd.Parameters.AddWithValue("passwordEmpleado", oEmpleado.passwordEmpleado);
-                    cmd.Parameters.AddWithValue("idRol", oEmpleado.idRol);
+                    SqlCommand cmd = new SqlCommand("SP_GuardarSucursal", conexion);
+                    cmd.Parameters.AddWithValue("nombreSucursal", oSucursal.nombreSucursal);
+                    cmd.Parameters.AddWithValue("direccionSucursal", oSucursal.direccionSucursal);
+                    cmd.Parameters.AddWithValue("telefonoSucursal", oSucursal.telefonoSucursal);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.ExecuteNonQuery();
                 }
@@ -96,7 +91,7 @@ namespace CORETeleco.Datos
             return rpta;
         }
 
-        public bool Editar(EmpleadoModel oEmpleado)
+        public bool Editar(SucursalModel oSucursal)
         {
             bool rpta;
 
@@ -107,12 +102,11 @@ namespace CORETeleco.Datos
                 using (var conexion = new SqlConnection(cn.getCadenaSQL()))
                 {
                     conexion.Open();
-                    SqlCommand cmd = new SqlCommand("SP_EditarEmpleado", conexion);
-                    cmd.Parameters.AddWithValue("idEmpleado", oEmpleado.idEmpleado);
-                    cmd.Parameters.AddWithValue("nombreEmpleado", oEmpleado.nombreEmpleado);
-                    cmd.Parameters.AddWithValue("apellidoEmpleado", oEmpleado.apellidoEmpleado);
-                    cmd.Parameters.AddWithValue("passwordEmpleado", oEmpleado.passwordEmpleado);
-                    cmd.Parameters.AddWithValue("idRol", oEmpleado.idRol);
+                    SqlCommand cmd = new SqlCommand("SP_EditarSucursal", conexion);
+                    cmd.Parameters.AddWithValue("idSucursal", oSucursal.idSucursal);
+                    cmd.Parameters.AddWithValue("nombreSucursal", oSucursal.nombreSucursal);
+                    cmd.Parameters.AddWithValue("direccionSucursal", oSucursal.direccionSucursal);
+                    cmd.Parameters.AddWithValue("telefonoSucursal", oSucursal.telefonoSucursal);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.ExecuteNonQuery();
                 }
@@ -127,7 +121,7 @@ namespace CORETeleco.Datos
             return rpta;
         }
 
-        public bool Eliminar(int idEmpleado)
+        public bool Eliminar(int idSucursal)
         {
             bool rpta;
 
@@ -138,8 +132,8 @@ namespace CORETeleco.Datos
                 using (var conexion = new SqlConnection(cn.getCadenaSQL()))
                 {
                     conexion.Open();
-                    SqlCommand cmd = new SqlCommand("SP_EliminarEmpleado", conexion);
-                    cmd.Parameters.AddWithValue("idEmpleado", idEmpleado);
+                    SqlCommand cmd = new SqlCommand("SP_EliminarSucursal", conexion);
+                    cmd.Parameters.AddWithValue("idSucursal", idSucursal);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.ExecuteNonQuery();
                 }

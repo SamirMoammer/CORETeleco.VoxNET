@@ -1,0 +1,37 @@
+﻿@model FacturaModel
+@{
+    ViewData["Title"] = "Guardar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card">
+    <div class="card-header">
+        Crear Factura
+    </div>
+    <div class="card-body">
+        <form asp-action="Guardar" asp-controller="Factura" method="post">
+            <div class="mb-3">
+                <label class="form-label">Método de Pago</label>
+                <input asp-for="metodoPagoFactura" type="text" class="form-control">
+                <span asp-validation-for="metodoPagoFactura" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Impuestos</label>
+                <input asp-for="impuestosFactura" type="text" class="form-control">
+                <span asp-validation-for="impuestosFactura" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Total</label>
+                <input asp-for="totalFactura" type="text" class="form-control">
+                <span asp-validation-for="totalFactura" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Cantidad</label>
+                <input asp-for="cantidadFactura" type="text" class="form-control">
+                <span asp-validation-for="cantidadFactura" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <a asp-action="Listar" asp-controller="Factura" class="btn btn-warning">Volver a la lista</a>
+        </form>
+    </div>
+</div>

@@ -1,13 +1,12 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+
 namespace CORETeleco.Models
 {
     public class ComprobanteModel
     {
-        public int IdTipoComprobante { get; set; }
+        public int idTipoComprobante { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "El campo Tipo de Comprobante es obligatorio")]
         public string? tipoComprobante { get; set; }
     }
 }
-

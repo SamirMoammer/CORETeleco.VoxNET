@@ -1,0 +1,35 @@
+﻿@model List<RolModel>
+@{
+    ViewData["Title"] = "Listar Roles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card">
+    <div class="card-header">
+        Lista de Roles
+    </div>
+    <div class="card-body">
+        <a asp-action="Crear" asp-controller="Rol" class="btn btn-success"><i class="bi bi-plus-circle"></i> Crear Nuevo Rol</a>
+        <hr />
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var rol in Model)
+                {
+                    <tr>
+                        <td>@rol.nombreRol</td>
+                        <td>
+                            <a asp-action="Editar" asp-controller="Rol" class="btn btn-primary btn-sm" asp-route-idRol="@rol.idRol">Editar</a>
+                            <a asp-action="Eliminar" asp-controller="Rol" class="btn btn-danger btn-sm" asp-route-idRol="@rol.idRol">Eliminar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
