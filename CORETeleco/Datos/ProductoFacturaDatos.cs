@@ -1,6 +1,8 @@
 ﻿using CORETeleco.Models;
-using System.Data.SqlClient;
+using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 
 namespace CORETeleco.Datos
 {
@@ -35,35 +37,90 @@ namespace CORETeleco.Datos
             return oLista;
         }
 
-        public void Guardar(int idFactura, int idProducto, int cantidad)
+        public bool Guardar(ProductoFacturaModel oProductoFactura)
         {
-            var cn = new Conexion();
+            bool rpta;
 
-            using (var conexion = new SqlConnection(cn.getCadenaSQL()))
+            try
             {
-                conexion.Open();
-                SqlCommand cmd = new SqlCommand("SP_GuardarProductoFactura", conexion);
-                cmd.Parameters.AddWithValue("idFactura", idFactura);
-                cmd.Parameters.AddWithValue("idProducto", idProducto);
-                cmd.Parameters.AddWithValue("cantidad", cantidad);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.ExecuteNonQuery();
+                var cn = new Conexion();
+
+                using (var conexion = new SqlConnection(cn.getCadenaSQL()))
+                {
+                    conexion.Open();
+                    SqlCommand cmd = new SqlCommand("SP_GuardarProductoFactura", conexion);
+                    cmd.Parameters.AddWithValue("idFactura", oProductoFactura.idFactura);
+                    cmd.Parameters.AddWithValue("idProducto", oProductoFactura.idProducto);
+                    cmd.Parameters.AddWithValue("cantidad", oProductoFactura.cantidad);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.ExecuteNonQuery();
+                }
+                rpta = true;
             }
+            catch (Exception e)
+            {
+                string error = e.Message;
+                rpta = false;
+            }
+
+            return rpta;
         }
 
-        public void Eliminar(int idFactura, int idProducto)
+        public bool Editar(ProductoFacturaModel oProductoFactura)
         {
-            var cn = new Conexion();
+            bool rpta;
 
-            using (var conexion = new SqlConnection(cn.getCadenaSQL()))
+            try
             {
-                conexion.Open();
-                SqlCommand cmd = new SqlCommand("SP_EliminarProductoFactura", conexion);
-                cmd.Parameters.AddWithValue("idFactura", idFactura);
-                cmd.Parameters.AddWithValue("idProducto", idProducto);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.ExecuteNonQuery();
+                var cn = new Conexion();
+
+                using (var conexion = new SqlConnection(cn.getCadenaSQL()))
+                {
+                    conexion.Open();
+                    SqlCommand cmd = new SqlCommand("SP_EditarProductoFactura", conexion);
+                    cmd.Parameters.AddWithValue("idFactura", oProductoFactura.idFactura);
+                    cmd.Parameters.AddWithValue("idProducto", oProductoFactura.idProducto);
+                    cmd.Parameters.AddWithValue("cantidad", oProductoFactura.cantidad);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.ExecuteNonQuery();
+                }
+                rpta = true;
             }
+            catch (Exception e)
+            {
+                string error = e.Message;
+                rpta = false;
+            }
+
+            return rpta;
+        }
+
+        public bool Eliminar(int idFactura, int idProducto)
+        {
+            bool rpta;
+
+            try
+            {
+                var cn = new Conexion();
+
+                using (var conexion = new SqlConnection(cn.getCadenaSQL()))
+                {
+                    conexion.Open();
+                    SqlCommand cmd = new SqlCommand("SP_EliminarProductoFactura", conexion);
+                    cmd.Parameters.AddWithValue("idFactura", idFactura);
+                    cmd.Parameters.AddWithValue("idProducto", idProducto);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.ExecuteNonQuery();
+                }
+                rpta = true;
+            }
+            catch (Exception e)
+            {
+                string error = e.Message;
+                rpta = false;
+            }
+
+            return rpta;
         }
     }
 }

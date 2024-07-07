@@ -14,29 +14,60 @@ namespace CORETeleco.Controllers
             return View(oLista);
         }
 
-        public IActionResult Agregar(int idFactura)
+        public IActionResult Guardar()
         {
-            ViewData["idFactura"] = idFactura;
-            // Aquí podrías incluir lógica para obtener la lista de productos disponibles
-            // y enviarla a la vista de agregar.
             return View();
         }
 
         [HttpPost]
-        public IActionResult Guardar(int idFactura, ProductoFacturaModel oProductoFactura)
+        public IActionResult Guardar(ProductoFacturaModel oProductoFactura)
         {
             if (!ModelState.IsValid)
                 return View();
 
-            _ProductoFacturaDatos.Guardar(idFactura, oProductoFactura.idProducto, oProductoFactura.cantidad);
-            return RedirectToAction("Listar", new { idFactura });
+            var respuesta = _ProductoFacturaDatos.Guardar(oProductoFactura);
+
+            if (respuesta)
+                return RedirectToAction("Listar", new { idFactura = oProductoFactura.idFactura });
+            else
+                return View();
+        }
+
+        public IActionResult Editar(int idFactura, int idProducto)
+        {
+            var oProductoFactura = new ProductoFacturaModel { idFactura = idFactura, idProducto = idProducto };
+            return View(oProductoFactura);
         }
 
         [HttpPost]
-        public IActionResult Eliminar(int idFactura, ProductoFacturaModel oProductoFactura)
+        public IActionResult Editar(ProductoFacturaModel oProductoFactura)
         {
-            _ProductoFacturaDatos.Eliminar(idFactura, oProductoFactura.idProducto);
-            return RedirectToAction("Listar", new { idFactura });
+            if (!ModelState.IsValid)
+                return View();
+
+            var respuesta = _ProductoFacturaDatos.Editar(oProductoFactura);
+
+            if (respuesta)
+                return RedirectToAction("Listar", new { idFactura = oProductoFactura.idFactura });
+            else
+                return View();
+        }
+
+        public IActionResult Eliminar(int idFactura, int idProducto)
+        {
+            var oProductoFactura = new ProductoFacturaModel { idFactura = idFactura, idProducto = idProducto };
+            return View(oProductoFactura);
+        }
+
+        [HttpPost]
+        public IActionResult Eliminar(ProductoFacturaModel oProductoFactura)
+        {
+            var respuesta = _ProductoFacturaDatos.Eliminar(oProductoFactura.idFactura, oProductoFactura.idProducto);
+
+            if (respuesta)
+                return RedirectToAction("Listar", new { idFactura = oProductoFactura.idFactura });
+            else
+                return View();
         }
     }
 }

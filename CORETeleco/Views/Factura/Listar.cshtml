@@ -1,4 +1,4 @@
-﻿@model List<CORETeleco.Models.FacturaModel>
+﻿@model List<FacturaModel>
 @{
     ViewData["Title"] = "Listar";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -19,6 +19,10 @@
                     <th>Impuestos</th>
                     <th>Total</th>
                     <th>Cantidad</th>
+                    <th>Sucursal</th>
+                    <th>Cliente</th>
+                    <th>Empleado</th>
+                    <th>Tipo de Comprobante</th>
                     <th></th>
                 </tr>
             </thead>
@@ -26,11 +30,15 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td>@item.fechaFactura.ToString("dd/MM/yyyy")</td>
+                        <td>@item.fechaFactura.ToString("yyyy-MM-dd")</td>
                         <td>@item.metodoPagoFactura</td>
                         <td>@item.impuestosFactura</td>
                         <td>@item.totalFactura</td>
                         <td>@item.cantidadFactura</td>
+                        <td>@item.idSucursal</td>
+                        <td>@item.idCliente</td>
+                        <td>@item.idEmpleado</td>
+                        <td>@item.idTipoComprobante</td>
                         <td>
                             <a asp-action="Editar" asp-controller="Factura" class="btn btn-primary btn-sm" asp-route-idFactura="@item.idFactura">Editar</a>
                             <a asp-action="Eliminar" asp-controller="Factura" class="btn btn-danger btn-sm" asp-route-idFactura="@item.idFactura">Eliminar</a>

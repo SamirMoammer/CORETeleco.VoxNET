@@ -10,9 +10,9 @@
     </div>
     <div class="card-body">
         <form asp-action="Eliminar" asp-controller="Factura" method="post">
-            <input asp-for="idFactura" type="hidden" />
+            <input asp-for="idFactura" type="hidden" class="form-control">
             <div class="alert alert-danger" role="alert">
-                ¿Desea eliminar la factura?
+                ¿Desea eliminar la factura con ID : @Html.DisplayFor(m => m.idFactura) ?
             </div>
             <button type="submit" class="btn btn-danger">Eliminar</button>
             <a asp-action="Listar" asp-controller="Factura" class="btn btn-warning">Volver a la lista</a>

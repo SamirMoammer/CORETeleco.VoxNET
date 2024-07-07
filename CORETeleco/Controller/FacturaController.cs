@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using CORETeleco.Datos;
 using CORETeleco.Models;
-using System;
 
 namespace CORETeleco.Controllers
 {
@@ -26,7 +25,6 @@ namespace CORETeleco.Controllers
             if (!ModelState.IsValid)
                 return View();
 
-            oFactura.fechaFactura = DateTime.Now; // Asigna la fecha actual
             var respuesta = _FacturaDatos.Guardar(oFactura);
 
             if (respuesta)

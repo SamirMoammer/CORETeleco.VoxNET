@@ -1,4 +1,4 @@
-﻿@model ProductoModel
+﻿@model CORETeleco.Models.ProductoModel
 @{
     ViewData["Title"] = "Editar";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -23,7 +23,7 @@
             </div>
             <div class="mb-3">
                 <label class="form-label">Precio</label>
-                <input asp-for="precioProducto" type="text" class="form-control">
+                <input asp-for="precioProducto" type="text" class="form-control" pattern="[0-9]+([\.,][0-9]+)?">
                 <span asp-validation-for="precioProducto" class="text-danger"></span>
             </div>
             <div class="mb-3">
@@ -32,11 +32,8 @@
                 <span asp-validation-for="disponibilidadProducto" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label class="form-label">Categoría</label>
-                <select asp-for="idCategoriaProducto" class="form-control">
-                    <option value="1">Categoría 1</option>
-                    <option value="2">Categoría 2</option>
-                </select>
+                <label class="form-label">Id Categoría</label>
+                <input asp-for="idCategoriaProducto" type="number" class="form-control">
                 <span asp-validation-for="idCategoriaProducto" class="text-danger"></span>
             </div>
             <button type="submit" class="btn btn-primary">Guardar</button>
@@ -44,4 +41,3 @@
         </form>
     </div>
 </div>
-

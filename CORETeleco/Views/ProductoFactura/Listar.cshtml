@@ -1,19 +1,20 @@
 ﻿@model List<CORETeleco.Models.ProductoFacturaModel>
 @{
-    ViewData["Title"] = "Productos de la Factura";
+    ViewData["Title"] = "Listar";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="card">
     <div class="card-header">
-        Productos de la Factura
+        Lista de Productos en Factura
     </div>
     <div class="card-body">
-        <a asp-action="Agregar" asp-controller="ProductoFactura" class="btn btn-success"><i class="bi bi-plus-circle"></i> Agregar Nuevo Producto</a>
+        <a asp-action="Guardar" asp-controller="ProductoFactura" class="btn btn-success"><i class="bi bi-plus-circle"></i> Agregar Nuevo</a>
         <hr />
         <table class="table table-bordered">
             <thead>
                 <tr>
+                    <th>ID Factura</th>
                     <th>ID Producto</th>
                     <th>Cantidad</th>
                     <th></th>
@@ -23,14 +24,12 @@
                 @foreach (var item in Model)
                 {
                     <tr>
+                        <td>@item.idFactura</td>
                         <td>@item.idProducto</td>
                         <td>@item.cantidad</td>
                         <td>
-                            <form asp-action="Eliminar" asp-controller="ProductoFactura" method="post">
-                                <input type="hidden" name="idFactura" value="@item.idFactura" />
-                                <input type="hidden" name="idProducto" value="@item.idProducto" />
-                                <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
-                            </form>
+                            <a asp-action="Editar" asp-controller="ProductoFactura" class="btn btn-primary btn-sm" asp-route-idFactura="@item.idFactura" asp-route-idProducto="@item.idProducto">Editar</a>
+                            <a asp-action="Eliminar" asp-controller="ProductoFactura" class="btn btn-danger btn-sm" asp-route-idFactura="@item.idFactura" asp-route-idProducto="@item.idProducto">Eliminar</a>
                         </td>
                     </tr>
                 }

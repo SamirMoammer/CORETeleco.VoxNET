@@ -32,12 +32,16 @@
             </div>
             <div class="mb-3">
                 <label class="form-label">Cliente</label>
-                <input asp-for="idCliente" type="number" class="form-control">
+                <select asp-for="idCliente" asp-items="@(new SelectList(Model.Cliente, "idCliente", "nombreCliente"))" class="form-control">
+                    <option value="">Seleccione un cliente</option>
+                </select>
                 <span asp-validation-for="idCliente" class="text-danger"></span>
             </div>
             <div class="mb-3">
                 <label class="form-label">Servicio</label>
-                <input asp-for="idServicio" type="number" class="form-control">
+                <select asp-for="idServicio" asp-items="@(new SelectList(Model.Servicio, "idServicio", "nombreServicio"))" class="form-control">
+                    <option value="">Seleccione un servicio</option>
+                </select>
                 <span asp-validation-for="idServicio" class="text-danger"></span>
             </div>
             <button type="submit" class="btn btn-primary">Guardar</button>

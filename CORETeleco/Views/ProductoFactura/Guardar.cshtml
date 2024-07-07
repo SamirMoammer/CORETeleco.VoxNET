@@ -1,0 +1,32 @@
+﻿@model CORETeleco.Models.ProductoFacturaModel
+@{
+    ViewData["Title"] = "Guardar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card">
+    <div class="card-header">
+        Agregar Producto a Factura
+    </div>
+    <div class="card-body">
+        <form asp-action="Guardar" asp-controller="ProductoFactura" method="post">
+            <div class="mb-3">
+                <label class="form-label">ID Factura</label>
+                <input asp-for="idFactura" type="text" class="form-control">
+                <span asp-validation-for="idFactura" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">ID Producto</label>
+                <input asp-for="idProducto" type="text" class="form-control">
+                <span asp-validation-for="idProducto" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Cantidad</label>
+                <input asp-for="cantidad" type="number" class="form-control">
+                <span asp-validation-for="cantidad" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <a asp-action="Listar" asp-controller="ProductoFactura" asp-route-idFactura="@Model.idFactura" class="btn btn-warning">Volver a la lista</a>
+        </form>
+    </div>
+</div>

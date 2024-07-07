@@ -11,10 +11,39 @@
     <div class="card-body">
         <form asp-action="Guardar" asp-controller="Factura" method="post">
             <div class="mb-3">
+                <label class="form-label">Fecha</label>
+                <input asp-for="fechaFactura" type="date" class="form-control">
+                <span asp-validation-for="fechaFactura" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
                 <label class="form-label">Método de Pago</label>
                 <input asp-for="metodoPagoFactura" type="text" class="form-control">
                 <span asp-validation-for="metodoPagoFactura" class="text-danger"></span>
             </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <label class="form-label">Cliente</label>
+                    <input asp-for="idCliente" type="text" class="form-control">
+                    <span asp-validation-for="idCliente" class="text-danger"></span>
+                </div>
+                <div class="col">
+                    <label class="form-label">Empleado</label>
+                    <input asp-for="idEmpleado" type="text" class="form-control">
+                    <span asp-validation-for="idEmpleado" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Sucursal</label>
+                <input asp-for="idSucursal" type="text" class="form-control">
+                <span asp-validation-for="idSucursal" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Tipo de Comprobante</label>
+                <input asp-for="idTipoComprobante" type="text" class="form-control">
+                <span asp-validation-for="idTipoComprobante" class="text-danger"></span>
+            </div>
+            <hr />
+            <h5>Detalle de Factura</h5>
             <div class="mb-3">
                 <label class="form-label">Impuestos</label>
                 <input asp-for="impuestosFactura" type="text" class="form-control">
@@ -24,11 +53,6 @@
                 <label class="form-label">Total</label>
                 <input asp-for="totalFactura" type="text" class="form-control">
                 <span asp-validation-for="totalFactura" class="text-danger"></span>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Cantidad</label>
-                <input asp-for="cantidadFactura" type="text" class="form-control">
-                <span asp-validation-for="cantidadFactura" class="text-danger"></span>
             </div>
             <button type="submit" class="btn btn-primary">Guardar</button>
             <a asp-action="Listar" asp-controller="Factura" class="btn btn-warning">Volver a la lista</a>

@@ -8,7 +8,7 @@ namespace CORETeleco.Controllers
     public class ClienteController : Controller
     {
         // Aquí se puede implementar un repositorio o servicio para manejar los datos del cliente
-        private List<ClienteModel> clientes = new List<ClienteModel>();
+        private List<ClienteModel> Cliente = new List<ClienteModel>();
 
         // GET: Cliente/InsertarCliente
         public IActionResult InsertarCliente()
@@ -23,7 +23,7 @@ namespace CORETeleco.Controllers
             try
             {
                 // Aquí podrías agregar la lógica para guardar el cliente en la base de datos o donde corresponda
-                clientes.Add(cliente);
+                Cliente.Add(cliente);
                 return RedirectToAction("Listar");
             }
             catch (Exception ex)
@@ -36,7 +36,7 @@ namespace CORETeleco.Controllers
         // GET: Cliente/Listar
         public IActionResult Listar()
         {
-            return View(clientes);
+            return View(Cliente);
         }
     }
 }

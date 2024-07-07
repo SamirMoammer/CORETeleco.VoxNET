@@ -10,10 +10,11 @@
     </div>
     <div class="card-body">
         <form asp-action="Editar" asp-controller="Factura" method="post">
-            <input asp-for="idFactura" type="hidden" />
+            <input asp-for="idFactura" type="hidden" class="form-control">
             <div class="mb-3">
                 <label class="form-label">Fecha</label>
-                <input asp-for="fechaFactura" type="text" class="form-control" readonly />
+                <input asp-for="fechaFactura" type="date" class="form-control">
+                <span asp-validation-for="fechaFactura" class="text-danger"></span>
             </div>
             <div class="mb-3">
                 <label class="form-label">Método de Pago</label>
@@ -34,6 +35,26 @@
                 <label class="form-label">Cantidad</label>
                 <input asp-for="cantidadFactura" type="text" class="form-control">
                 <span asp-validation-for="cantidadFactura" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Sucursal</label>
+                <input asp-for="idSucursal" type="text" class="form-control">
+                <span asp-validation-for="idSucursal" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Cliente</label>
+                <input asp-for="idCliente" type="text" class="form-control">
+                <span asp-validation-for="idCliente" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Empleado</label>
+                <input asp-for="idEmpleado" type="text" class="form-control">
+                <span asp-validation-for="idEmpleado" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Tipo de Comprobante</label>
+                <input asp-for="idTipoComprobante" type="text" class="form-control">
+                <span asp-validation-for="idTipoComprobante" class="text-danger"></span>
             </div>
             <button type="submit" class="btn btn-primary">Guardar</button>
             <a asp-action="Listar" asp-controller="Factura" class="btn btn-warning">Volver a la lista</a>

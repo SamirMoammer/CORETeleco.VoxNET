@@ -1,74 +1,72 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using CORETeleco.Datos;
+﻿using CORETeleco.Datos;
 using CORETeleco.Models;
-using System;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections.Generic;
 
 namespace CORETeleco.Controllers
 {
     public class ContratoController : Controller
     {
-        ContratoDatos _ContratoDatos = new ContratoDatos();
+        private readonly ClienteDatos _ClienteDatos;
+        private readonly ServicioDatos _ServicioDatos;
+        private readonly ContratoDatos _ContratoDatos;
 
-        public IActionResult Listar()
+        public ContratoController()
         {
-            var oLista = _ContratoDatos.Listar();
-            return View(oLista);
+            _ClienteDatos = new ClienteDatos();
+            _ServicioDatos = new ServicioDatos();
+            _ContratoDatos = new ContratoDatos();
         }
 
-        public IActionResult Guardar()
+        [HttpGet]
+        public IActionResult InsertarContrato()
         {
-            return View();
-        }
+            // Obtener listas de clientes y servicios
+            var Cliente = _ClienteDatos.Listar();
+            var Servicio = _ServicioDatos.Listar();
 
-        [HttpPost]
-        public IActionResult Guardar(ContratoModel oContrato)
-        {
-            if (!ModelState.IsValid)
-                return View();
+            // Pasar las listas a la vista a través de ViewBag
+            ViewBag.Cliente = new SelectList(Cliente, "idCliente", "nombreCliente");
+            ViewBag.Servicio = new SelectList(Servicio, "idServicio", "nombreServicio");
 
-            var respuesta = _ContratoDatos.Guardar(oContrato);
-
-            if (respuesta)
-                return RedirectToAction("Listar");
-            else
-                return View();
-        }
-
-        public IActionResult Editar(int idContrato)
-        {
-            var oContrato = _ContratoDatos.Obtener(idContrato);
-            return View(oContrato);
+            return View(new ContratoModel());
         }
 
         [HttpPost]
-        public IActionResult Editar(ContratoModel oContrato)
+        public IActionResult Guardar(ContratoModel Contrato)
         {
-            if (!ModelState.IsValid)
-                return View();
+            if (ModelState.IsValid)
+            {
+                bool rpta;
+                if (Contrato.idContrato == 0)
+                {
+                    // Nuevo contrato
+                    rpta = _ContratoDatos.Guardar(Contrato);
+                }
+                else
+                {
+                    // Editar contrato
+                    rpta = _ContratoDatos.Editar(Contrato);
+                }
 
-            var respuesta = _ContratoDatos.Editar(oContrato);
+                if (rpta)
+                {
+                    return RedirectToAction("Listar");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "No se pudo guardar el contrato");
+                }
+            }
 
-            if (respuesta)
-                return RedirectToAction("Listar");
-            else
-                return View();
+            // Obtener listas de clientes y servicios nuevamente en caso de error
+            ViewBag.Cliente = new SelectList(_ClienteDatos.Listar(), "idCliente", "nombreCliente");
+            ViewBag.Servicio = new SelectList(_ServicioDatos.Listar(), "idServicio", "nombreServicio");
+
+            return View("Guardar", Contrato);
         }
 
-        public IActionResult Eliminar(int idContrato)
-        {
-            var oContrato = _ContratoDatos.Obtener(idContrato);
-            return View(oContrato);
-        }
-
-        [HttpPost]
-        public IActionResult Eliminar(ContratoModel oContrato)
-        {
-            var respuesta = _ContratoDatos.Eliminar(oContrato.idContrato);
-
-            if (respuesta)
-                return RedirectToAction("Listar");
-            else
-                return View();
-        }
+        // Otros métodos del controlador...
     }
 }
