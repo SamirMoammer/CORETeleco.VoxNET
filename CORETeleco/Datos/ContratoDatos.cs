@@ -1,8 +1,6 @@
 ﻿using CORETeleco.Models;
-using System.Data;
 using System.Data.SqlClient;
-using System;
-using System.Collections.Generic;
+using System.Data;
 
 namespace CORETeleco.Datos
 {
@@ -49,7 +47,7 @@ namespace CORETeleco.Datos
             {
                 conexion.Open();
                 SqlCommand cmd = new SqlCommand("SP_ObtenerContrato", conexion);
-                cmd.Parameters.AddWithValue("@idContrato", idContrato);
+                cmd.Parameters.AddWithValue("idContrato", idContrato);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 using (var dr = cmd.ExecuteReader())
@@ -82,12 +80,12 @@ namespace CORETeleco.Datos
                 {
                     conexion.Open();
                     SqlCommand cmd = new SqlCommand("SP_GuardarContrato", conexion);
-                    cmd.Parameters.AddWithValue("@fechaInicioContrato", oContrato.fechaInicioContrato);
-                    cmd.Parameters.AddWithValue("@fechaFinContrato", oContrato.fechaFinContrato);
-                    cmd.Parameters.AddWithValue("@descripcionContrato", oContrato.descripcionContrato);
-                    cmd.Parameters.AddWithValue("@estadoContrato", oContrato.estadoContrato);
-                    cmd.Parameters.AddWithValue("@idCliente", oContrato.idCliente);
-                    cmd.Parameters.AddWithValue("@idServicio", oContrato.idServicio);
+                    cmd.Parameters.AddWithValue("fechaInicioContrato", oContrato.fechaInicioContrato);
+                    cmd.Parameters.AddWithValue("fechaFinContrato", oContrato.fechaFinContrato);
+                    cmd.Parameters.AddWithValue("descripcionContrato", oContrato.descripcionContrato);
+                    cmd.Parameters.AddWithValue("estadoContrato", oContrato.estadoContrato);
+                    cmd.Parameters.AddWithValue("idCliente", oContrato.idCliente);
+                    cmd.Parameters.AddWithValue("idServicio", oContrato.idServicio);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.ExecuteNonQuery();
                 }
@@ -114,13 +112,13 @@ namespace CORETeleco.Datos
                 {
                     conexion.Open();
                     SqlCommand cmd = new SqlCommand("SP_EditarContrato", conexion);
-                    cmd.Parameters.AddWithValue("@idContrato", oContrato.idContrato);
-                    cmd.Parameters.AddWithValue("@fechaInicioContrato", oContrato.fechaInicioContrato);
-                    cmd.Parameters.AddWithValue("@fechaFinContrato", oContrato.fechaFinContrato);
-                    cmd.Parameters.AddWithValue("@descripcionContrato", oContrato.descripcionContrato);
-                    cmd.Parameters.AddWithValue("@estadoContrato", oContrato.estadoContrato);
-                    cmd.Parameters.AddWithValue("@idCliente", oContrato.idCliente);
-                    cmd.Parameters.AddWithValue("@idServicio", oContrato.idServicio);
+                    cmd.Parameters.AddWithValue("idContrato", oContrato.idContrato);
+                    cmd.Parameters.AddWithValue("fechaInicioContrato", oContrato.fechaInicioContrato);
+                    cmd.Parameters.AddWithValue("fechaFinContrato", oContrato.fechaFinContrato);
+                    cmd.Parameters.AddWithValue("descripcionContrato", oContrato.descripcionContrato);
+                    cmd.Parameters.AddWithValue("estadoContrato", oContrato.estadoContrato);
+                    cmd.Parameters.AddWithValue("idCliente", oContrato.idCliente);
+                    cmd.Parameters.AddWithValue("idServicio", oContrato.idServicio);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.ExecuteNonQuery();
                 }
@@ -147,7 +145,7 @@ namespace CORETeleco.Datos
                 {
                     conexion.Open();
                     SqlCommand cmd = new SqlCommand("SP_EliminarContrato", conexion);
-                    cmd.Parameters.AddWithValue("@idContrato", idContrato);
+                    cmd.Parameters.AddWithValue("idContrato", idContrato);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.ExecuteNonQuery();
                 }

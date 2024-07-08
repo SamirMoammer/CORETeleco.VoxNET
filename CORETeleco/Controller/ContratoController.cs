@@ -1,72 +1,73 @@
-﻿using CORETeleco.Datos;
+﻿using Microsoft.AspNetCore.Mvc;
+using CORETeleco.Datos;
 using CORETeleco.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Collections.Generic;
 
 namespace CORETeleco.Controllers
 {
     public class ContratoController : Controller
     {
-        private readonly ClienteDatos _ClienteDatos;
-        private readonly ServicioDatos _ServicioDatos;
-        private readonly ContratoDatos _ContratoDatos;
+        ContratoDatos _ContratoDatos = new ContratoDatos();
 
-        public ContratoController()
+        public IActionResult Listar()
         {
-            _ClienteDatos = new ClienteDatos();
-            _ServicioDatos = new ServicioDatos();
-            _ContratoDatos = new ContratoDatos();
+            var oLista = _ContratoDatos.Listar();
+            return View(oLista);
         }
 
-        [HttpGet]
-        public IActionResult InsertarContrato()
+        public IActionResult Guardar()
         {
-            // Obtener listas de clientes y servicios
-            var Cliente = _ClienteDatos.Listar();
-            var Servicio = _ServicioDatos.Listar();
-
-            // Pasar las listas a la vista a través de ViewBag
-            ViewBag.Cliente = new SelectList(Cliente, "idCliente", "nombreCliente");
-            ViewBag.Servicio = new SelectList(Servicio, "idServicio", "nombreServicio");
-
-            return View(new ContratoModel());
+            return View();
         }
 
         [HttpPost]
-        public IActionResult Guardar(ContratoModel Contrato)
+        public IActionResult Guardar(ContratoModel oContrato)
         {
-            if (ModelState.IsValid)
-            {
-                bool rpta;
-                if (Contrato.idContrato == 0)
-                {
-                    // Nuevo contrato
-                    rpta = _ContratoDatos.Guardar(Contrato);
-                }
-                else
-                {
-                    // Editar contrato
-                    rpta = _ContratoDatos.Editar(Contrato);
-                }
+            if (!ModelState.IsValid)
+                return View();
 
-                if (rpta)
-                {
-                    return RedirectToAction("Listar");
-                }
-                else
-                {
-                    ModelState.AddModelError("", "No se pudo guardar el contrato");
-                }
-            }
+            var respuesta = _ContratoDatos.Guardar(oContrato);
 
-            // Obtener listas de clientes y servicios nuevamente en caso de error
-            ViewBag.Cliente = new SelectList(_ClienteDatos.Listar(), "idCliente", "nombreCliente");
-            ViewBag.Servicio = new SelectList(_ServicioDatos.Listar(), "idServicio", "nombreServicio");
-
-            return View("Guardar", Contrato);
+            if (respuesta)
+                return RedirectToAction("Listar");
+            else
+                return View();
         }
 
-        // Otros métodos del controlador...
+        public IActionResult Editar(int idContrato)
+        {
+            var oContrato = _ContratoDatos.Obtener(idContrato);
+            return View(oContrato);
+        }
+
+        [HttpPost]
+        public IActionResult Editar(ContratoModel oContrato)
+        {
+            if (!ModelState.IsValid)
+                return View();
+
+            var respuesta = _ContratoDatos.Editar(oContrato);
+
+            if (respuesta)
+                return RedirectToAction("Listar");
+            else
+                return View();
+        }
+
+        public IActionResult Eliminar(int idContrato)
+        {
+            var oContrato = _ContratoDatos.Obtener(idContrato);
+            return View(oContrato);
+        }
+
+        [HttpPost]
+        public IActionResult Eliminar(ContratoModel oContrato)
+        {
+            var respuesta = _ContratoDatos.Eliminar(oContrato.idContrato);
+
+            if (respuesta)
+                return RedirectToAction("Listar");
+            else
+                return View();
+        }
     }
 }

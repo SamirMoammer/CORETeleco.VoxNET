@@ -15,8 +15,8 @@
             <thead>
                 <tr>
                     <th>ID Contrato</th>
-                    <th>Fecha Inicio</th>
-                    <th>Fecha Fin</th>
+                    <th>Fecha de Inicio</th>
+                    <th>Fecha de Fin</th>
                     <th>Descripción</th>
                     <th>Estado</th>
                     <th>Cliente</th>
@@ -29,8 +29,8 @@
                 {
                     <tr>
                         <td>@item.idContrato</td>
-                        <td>@item.fechaInicioContrato.ToString("yyyy-MM-dd")</td>
-                        <td>@item.fechaFinContrato.ToString("yyyy-MM-dd")</td>
+                        <td>@item.fechaInicioContrato.ToShortDateString()</td>
+                        <td>@item.fechaFinContrato.ToShortDateString()</td>
                         <td>@item.descripcionContrato</td>
                         <td>@(item.estadoContrato ? "Activo" : "Inactivo")</td>
                         <td>@item.idCliente</td>

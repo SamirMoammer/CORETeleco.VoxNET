@@ -1,4 +1,4 @@
-﻿@model ContratoModel
+﻿@model CORETeleco.Models.ContratoModel
 @{
     ViewData["Title"] = "Editar";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -12,12 +12,12 @@
         <form asp-action="Editar" asp-controller="Contrato" method="post">
             <input asp-for="idContrato" type="hidden" class="form-control">
             <div class="mb-3">
-                <label class="form-label">Fecha Inicio</label>
+                <label class="form-label">Fecha de Inicio</label>
                 <input asp-for="fechaInicioContrato" type="date" class="form-control">
                 <span asp-validation-for="fechaInicioContrato" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label class="form-label">Fecha Fin</label>
+                <label class="form-label">Fecha de Fin</label>
                 <input asp-for="fechaFinContrato" type="date" class="form-control">
                 <span asp-validation-for="fechaFinContrato" class="text-danger"></span>
             </div>
