@@ -1,23 +1,23 @@
-﻿@model RolModel
+﻿@model CORETeleco.Models.RolModel
 @{
     ViewData["Title"] = "Editar";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="card">
-    <div class="card-header">
-        Editar Rol
-    </div>
-    <div class="card-body">
-        <form asp-action="Editar" asp-controller="Rol" method="post">
-            <input asp-for="idRol" type="hidden" class="form-control">
-            <div class="mb-3">
-                <label class="form-label">Nombre</label>
-                <input asp-for="nombreRol" type="text" class="form-control">
-                <span asp-validation-for="nombreRol" class="text-danger"></span>
-            </div>
-            <button type="submit" class="btn btn-primary">Guardar</button>
-            <a asp-action="Listar" asp-controller="Rol" class="btn btn-warning">Volver a la lista</a>
-        </form>
-    </div>
+  <div class="card-header">
+    Editar Rol
+  </div>
+  <div class="card-body">
+    <form asp-action="Editar" asp-controller="Rol" method="post">
+      <input asp-for="idRol" type="hidden" class="form-control">
+      <div class="mb-3">
+        <label class="form-label">Nombre</label>
+        <input asp-for="nombreRol" type="text" class="form-control">
+        <span asp-validation-for="nombreRol" class="text-danger"></span>
+      </div>
+      <button type="submit" class="btn btn-primary">Guardar</button>
+      <a asp-action="Listar" asp-controller="Rol" class="btn btn-warning">Volver a la lista</a>
+    </form>
+  </div>
 </div>

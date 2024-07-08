@@ -1,42 +1,73 @@
-﻿using CORETeleco.Models;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
+using CORETeleco.Datos;
+using CORETeleco.Models;
 
 namespace CORETeleco.Controllers
 {
     public class ClienteController : Controller
     {
-        // Aquí se puede implementar un repositorio o servicio para manejar los datos del cliente
-        private List<ClienteModel> Cliente = new List<ClienteModel>();
+        ClienteDatos _ClienteDatos = new ClienteDatos();
 
-        // GET: Cliente/InsertarCliente
-        public IActionResult InsertarCliente()
+        public IActionResult Listar()
+        {
+            var oLista = _ClienteDatos.Listar();
+            return View(oLista);
+        }
+
+        public IActionResult Guardar()
         {
             return View();
         }
 
-        // POST: Cliente/InsertarCliente
         [HttpPost]
-        public IActionResult InsertarCliente(ClienteModel cliente)
+        public IActionResult Guardar(ClienteModel oCliente)
         {
-            try
-            {
-                // Aquí podrías agregar la lógica para guardar el cliente en la base de datos o donde corresponda
-                Cliente.Add(cliente);
+            if (!ModelState.IsValid)
+                return View();
+
+            var respuesta = _ClienteDatos.Guardar(oCliente);
+
+            if (respuesta)
                 return RedirectToAction("Listar");
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError("", "Error al insertar el cliente: " + ex.Message);
-                return View(cliente);
-            }
+            else
+                return View();
         }
 
-        // GET: Cliente/Listar
-        public IActionResult Listar()
+        public IActionResult Editar(int idCliente)
         {
-            return View(Cliente);
+            var oCliente = _ClienteDatos.Obtener(idCliente);
+            return View(oCliente);
+        }
+
+        [HttpPost]
+        public IActionResult Editar(ClienteModel oCliente)
+        {
+            if (!ModelState.IsValid)
+                return View();
+
+            var respuesta = _ClienteDatos.Editar(oCliente);
+
+            if (respuesta)
+                return RedirectToAction("Listar");
+            else
+                return View();
+        }
+
+        public IActionResult Eliminar(int idCliente)
+        {
+            var oCliente = _ClienteDatos.Obtener(idCliente);
+            return View(oCliente);
+        }
+
+        [HttpPost]
+        public IActionResult Eliminar(ClienteModel oCliente)
+        {
+            var respuesta = _ClienteDatos.Eliminar(oCliente.idCliente);
+
+            if (respuesta)
+                return RedirectToAction("Listar");
+            else
+                return View();
         }
     }
 }

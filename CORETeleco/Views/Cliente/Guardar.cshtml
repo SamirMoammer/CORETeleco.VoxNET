@@ -1,4 +1,4 @@
-﻿@model ClienteModel
+﻿@model CORETeleco.Models.ClienteModel
 @{
     ViewData["Title"] = "Guardar";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -9,39 +9,41 @@
         Crear Cliente
     </div>
     <div class="card-body">
-        <form asp-action="Guardar" asp-controller="Cliente" method="post">
-            <div class="mb-3">
+        <form asp-action="Guardar" asp-controller="Cliente" method="post" class="row g-3">
+            <div class="col-md-6">
                 <label class="form-label">Nombre</label>
                 <input asp-for="nombreCliente" type="text" class="form-control">
                 <span asp-validation-for="nombreCliente" class="text-danger"></span>
             </div>
-            <div class="mb-3">
+            <div class="col-md-6">
                 <label class="form-label">Dirección</label>
                 <input asp-for="direccionCliente" type="text" class="form-control">
                 <span asp-validation-for="direccionCliente" class="text-danger"></span>
             </div>
-            <div class="mb-3">
+            <div class="col-md-6">
                 <label class="form-label">Teléfono</label>
                 <input asp-for="telefonoCliente" type="text" class="form-control">
                 <span asp-validation-for="telefonoCliente" class="text-danger"></span>
             </div>
-            <div class="mb-3">
+            <div class="col-md-6">
                 <label class="form-label">Correo</label>
                 <input asp-for="correoCliente" type="text" class="form-control">
                 <span asp-validation-for="correoCliente" class="text-danger"></span>
             </div>
-            <div class="mb-3">
+            <div class="col-md-6">
                 <label class="form-label">Cédula</label>
                 <input asp-for="cedulaCliente" type="text" class="form-control">
                 <span asp-validation-for="cedulaCliente" class="text-danger"></span>
             </div>
-            <div class="mb-3">
+            <div class="col-md-6">
                 <label class="form-label">Contraseña</label>
                 <input asp-for="passwordCliente" type="password" class="form-control">
                 <span asp-validation-for="passwordCliente" class="text-danger"></span>
             </div>
-            <button type="submit" class="btn btn-primary">Guardar</button>
-            <a asp-action="Listar" asp-controller="Cliente" class="btn btn-warning">Volver a la lista</a>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                <a asp-action="Listar" asp-controller="Cliente" class="btn btn-warning">Volver a la lista</a>
+            </div>
         </form>
     </div>
 </div>
