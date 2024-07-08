@@ -29,7 +29,7 @@
                         <td>@item.nombreProducto</td>
                         <td>@item.descripcionProducto</td>
                         <td>@item.precioProducto</td>
-                        <td>@(item.disponibilidadProducto ? "Disponible" : "No disponible")</td>
+                        <td>@item.disponibilidadProducto</td>
                         <td>@item.idCategoriaProducto</td>
                         <td>
                             <a asp-action="Editar" asp-controller="Producto" class="btn btn-primary btn-sm" asp-route-idProducto="@item.idProducto">Editar</a>

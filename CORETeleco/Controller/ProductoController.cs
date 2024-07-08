@@ -1,74 +1,95 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using CORETeleco.Datos;
 using CORETeleco.Models;
-using System;
+using CORETeleco.Datos;
+using System.Collections.Generic;
 
 namespace CORETeleco.Controllers
 {
     public class ProductoController : Controller
     {
-        ProductoDatos _ProductoDatos = new ProductoDatos();
+        private readonly ProductoDatos _productoDatos = new ProductoDatos();
 
         public IActionResult Listar()
         {
-            var oLista = _ProductoDatos.Listar();
-            return View(oLista);
+            List<ProductoModel> productos = _productoDatos.Listar();
+            return View(productos);
         }
 
         public IActionResult Guardar()
         {
+            ViewBag.Categorias = _productoDatos.ObtenerCategorias();
             return View();
         }
 
         [HttpPost]
-        public IActionResult Guardar(ProductoModel oProducto)
+        public IActionResult Guardar(ProductoModel producto)
         {
             if (!ModelState.IsValid)
-                return View();
+            {
+                ViewBag.Categorias = _productoDatos.ObtenerCategorias();
+                return View(producto);
+            }
 
-            var respuesta = _ProductoDatos.Guardar(oProducto);
+            bool respuesta = _productoDatos.Guardar(producto);
 
             if (respuesta)
                 return RedirectToAction("Listar");
             else
-                return View();
+            {
+                ViewBag.Categorias = _productoDatos.ObtenerCategorias();
+                return View(producto);
+            }
         }
 
-        public IActionResult Editar(int idProducto)
+        public IActionResult Editar(int id)
         {
-            var oProducto = _ProductoDatos.Obtener(idProducto);
-            return View(oProducto);
+            ProductoModel producto = _productoDatos.Obtener(id);
+            if (producto == null)
+                return NotFound();
+
+            ViewBag.Categorias = _productoDatos.ObtenerCategorias();
+            return View(producto);
         }
 
         [HttpPost]
-        public IActionResult Editar(ProductoModel oProducto)
+        public IActionResult Editar(ProductoModel producto)
         {
             if (!ModelState.IsValid)
-                return View();
+            {
+                ViewBag.Categorias = _productoDatos.ObtenerCategorias();
+                return View(producto);
+            }
 
-            var respuesta = _ProductoDatos.Editar(oProducto);
+            bool respuesta = _productoDatos.Editar(producto);
 
             if (respuesta)
                 return RedirectToAction("Listar");
             else
-                return View();
+            {
+                ViewBag.Categorias = _productoDatos.ObtenerCategorias();
+                return View(producto);
+            }
         }
 
-        public IActionResult Eliminar(int idProducto)
+        public IActionResult Eliminar(int id)
         {
-            var oProducto = _ProductoDatos.Obtener(idProducto);
-            return View(oProducto);
+            ProductoModel producto = _productoDatos.Obtener(id);
+            if (producto == null)
+                return NotFound();
+
+            return View(producto);
         }
 
         [HttpPost]
-        public IActionResult Eliminar(ProductoModel oProducto)
+        public IActionResult Eliminar(ProductoModel producto)
         {
-            var respuesta = _ProductoDatos.Eliminar(oProducto.idProducto);
+            bool respuesta = _productoDatos.Eliminar(producto.idProducto);
 
             if (respuesta)
                 return RedirectToAction("Listar");
             else
-                return View();
+                return View(producto);
         }
+
     }
 }

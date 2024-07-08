@@ -1,17 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using CORETeleco.Datos;
 using CORETeleco.Models;
+using CORETeleco.Datos;
+using System.Collections.Generic;
 
 namespace CORETeleco.Controllers
 {
     public class CategoriaController : Controller
     {
-        CategoriaDatos _CategoriaDatos = new CategoriaDatos();
+        private readonly CategoriaDatos _CategoriaDatos = new CategoriaDatos();
 
         public IActionResult Listar()
         {
-            var oLista = _CategoriaDatos.Listar();
-            return View(oLista);
+            List<CategoriaModel> Categoria = _CategoriaDatos.Listar();
+            return View(Categoria);
         }
 
         public IActionResult Guardar()
@@ -20,12 +21,12 @@ namespace CORETeleco.Controllers
         }
 
         [HttpPost]
-        public IActionResult Guardar(CategoriaModel oCategoria)
+        public IActionResult Guardar(CategoriaModel Categoria)
         {
             if (!ModelState.IsValid)
                 return View();
 
-            var respuesta = _CategoriaDatos.Guardar(oCategoria);
+            bool respuesta = _CategoriaDatos.Guardar(Categoria);
 
             if (respuesta)
                 return RedirectToAction("Listar");
@@ -33,19 +34,22 @@ namespace CORETeleco.Controllers
                 return View();
         }
 
-        public IActionResult Editar(int idCategoriaProducto)
+        public IActionResult Editar(int id)
         {
-            var oCategoria = _CategoriaDatos.Obtener(idCategoriaProducto);
-            return View(oCategoria);
+            CategoriaModel categoria = _CategoriaDatos.Obtener(id);
+            if (categoria == null)
+                return NotFound();
+
+            return View(categoria);
         }
 
         [HttpPost]
-        public IActionResult Editar(CategoriaModel oCategoria)
+        public IActionResult Editar(CategoriaModel Categoria)
         {
             if (!ModelState.IsValid)
                 return View();
 
-            var respuesta = _CategoriaDatos.Editar(oCategoria);
+            bool respuesta = _CategoriaDatos.Editar(Categoria);
 
             if (respuesta)
                 return RedirectToAction("Listar");
@@ -53,17 +57,19 @@ namespace CORETeleco.Controllers
                 return View();
         }
 
-        public IActionResult Eliminar(int idCategoriaProducto)
+        public IActionResult Eliminar(int id)
         {
-            var oCategoria = _CategoriaDatos.Obtener(idCategoriaProducto);
-            return View(oCategoria);
+            CategoriaModel categoria = _CategoriaDatos.Obtener(id);
+            if (categoria == null)
+                return NotFound();
+
+            return View(categoria);
         }
 
         [HttpPost]
-        public IActionResult Eliminar(CategoriaModel oCategoria)
+        public IActionResult Eliminar(CategoriaModel categoria)
         {
-            var respuesta = _CategoriaDatos.Eliminar(oCategoria.idCategoriaProducto);
-
+            bool respuesta = _CategoriaDatos.Eliminar(categoria.idCategoriaProducto);
             if (respuesta)
                 return RedirectToAction("Listar");
             else
@@ -71,5 +77,3 @@ namespace CORETeleco.Controllers
         }
     }
 }
-
-

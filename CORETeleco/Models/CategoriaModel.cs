@@ -7,7 +7,6 @@ namespace CORETeleco.Models
         public int idCategoriaProducto { get; set; }
 
         [Required(ErrorMessage = "El campo Categoría es obligatorio")]
-        public string? categoriaProducto { get; set; }
+        public string categoriaProducto { get; set; }
     }
 }
-

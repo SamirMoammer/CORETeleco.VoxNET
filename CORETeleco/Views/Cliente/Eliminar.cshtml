@@ -5,17 +5,17 @@
 }
 
 <div class="card">
-    <div class="card-header">
-        Eliminar Cliente
-    </div>
-    <div class="card-body">
-        <form asp-action="Eliminar" asp-controller="Cliente" method="post">
-            <input asp-for="idCliente" type="hidden" class="form-control">
-            <div class="alert alert-danger" role="alert">
-                ¿Desea eliminar el cliente: @Html.DisplayTextFor(m => m.nombreCliente) ?
-            </div>
-            <button type="submit" class="btn btn-danger">Eliminar</button>
-            <a asp-action="Listar" asp-controller="Cliente" class="btn btn-warning">Volver a la lista</a>
-        </form>
-    </div>
+  <div class="card-header">
+    Eliminar Cliente
+  </div>
+  <div class="card-body">
+    <form asp-action="Eliminar" asp-controller="Cliente" method="post">
+      <input asp-for="idCliente" type="hidden" class="form-control">
+      <div class="alert alert-danger" role="alert">
+        ¿Desea eliminar el cliente: @Html.DisplayTextFor(m => m.nombreCliente) ?
+      </div>
+      <button type="submit" class="btn btn-danger">Eliminar</button>
+      <a asp-action="Listar" asp-controller="Cliente" class="btn btn-warning">Volver a la lista</a>
+    </form>
+  </div>
 </div>

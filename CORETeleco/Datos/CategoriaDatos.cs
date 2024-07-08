@@ -1,143 +1,139 @@
 ﻿using CORETeleco.Models;
-using System.Data.SqlClient;
+using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 
 namespace CORETeleco.Datos
 {
     public class CategoriaDatos
     {
+        private readonly string connectionString;
+
+        public CategoriaDatos()
+        {
+            connectionString = "Server=localhost;Database=CORETeleco;User Id=SA;Password=SSrm2823;";
+        }
+
         public List<CategoriaModel> Listar()
         {
-            var oLista = new List<CategoriaModel>();
-            var cn = new Conexion();
+            List<CategoriaModel> categorias = new List<CategoriaModel>();
 
-            using (var conexion = new SqlConnection(cn.getCadenaSQL()))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                conexion.Open();
-                SqlCommand cmd = new SqlCommand("SP_ListarCategorias", conexion);
-                cmd.CommandType = CommandType.StoredProcedure;
+                connection.Open();
+                SqlCommand cmd = new SqlCommand("SELECT idCategoriaProducto, categoriaProducto FROM Categoria", connection);
+                SqlDataReader reader = cmd.ExecuteReader();
 
-                using (var dr = cmd.ExecuteReader())
+                while (reader.Read())
                 {
-                    while (dr.Read())
+                    CategoriaModel categoria = new CategoriaModel
                     {
-                        oLista.Add(new CategoriaModel()
-                        {
-                            idCategoriaProducto = Convert.ToInt32(dr["idCategoriaProducto"]),
-                            categoriaProducto = dr["categoriaProducto"].ToString()
-                        });
-                    }
+                        idCategoriaProducto = Convert.ToInt32(reader["idCategoriaProducto"]),
+                        categoriaProducto = reader["categoriaProducto"].ToString()
+                    };
+                    categorias.Add(categoria);
                 }
             }
 
-            return oLista;
+            return categorias;
         }
 
-        public CategoriaModel Obtener(int idCategoriaProducto)
+        public CategoriaModel Obtener(int id)
         {
-            var oCategoria = new CategoriaModel();
-            var cn = new Conexion();
+            CategoriaModel categoria = null;
 
-            using (var conexion = new SqlConnection(cn.getCadenaSQL()))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                conexion.Open();
-                SqlCommand cmd = new SqlCommand("SP_ObtenerCategoria", conexion);
-                cmd.Parameters.AddWithValue("idCategoriaProducto", idCategoriaProducto);
-                cmd.CommandType = CommandType.StoredProcedure;
+                connection.Open();
+                SqlCommand cmd = new SqlCommand("SELECT idCategoriaProducto, categoriaProducto FROM Categoria WHERE idCategoriaProducto = @IdCategoria", connection);
+                cmd.Parameters.AddWithValue("@IdCategoria", id);
+                SqlDataReader reader = cmd.ExecuteReader();
 
-                using (var dr = cmd.ExecuteReader())
+                if (reader.Read())
                 {
-                    while (dr.Read())
+                    categoria = new CategoriaModel
                     {
-                        oCategoria.idCategoriaProducto = Convert.ToInt32(dr["idCategoriaProducto"]);
-                        oCategoria.categoriaProducto = dr["categoriaProducto"].ToString();
-                    }
+                        idCategoriaProducto = Convert.ToInt32(reader["idCategoriaProducto"]),
+                        categoriaProducto = reader["categoriaProducto"].ToString()
+                    };
                 }
             }
 
-            return oCategoria;
+            return categoria;
         }
 
-        public bool Guardar(CategoriaModel oCategoria)
+        public bool Guardar(CategoriaModel categoria)
         {
-            bool rpta;
+            bool respuesta = false;
 
             try
             {
-                var cn = new Conexion();
-
-                using (var conexion = new SqlConnection(cn.getCadenaSQL()))
+                using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    conexion.Open();
-                    SqlCommand cmd = new SqlCommand("SP_GuardarCategoria", conexion);
-                    cmd.Parameters.AddWithValue("categoriaProducto", oCategoria.categoriaProducto);
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.ExecuteNonQuery();
+                    connection.Open();
+                    SqlCommand cmd = new SqlCommand("INSERT INTO Categoria (categoriaProducto) VALUES (@NombreCategoria)", connection);
+                    cmd.Parameters.AddWithValue("@NombreCategoria", categoria.categoriaProducto);
+                    int rows = cmd.ExecuteNonQuery();
+                    respuesta = rows > 0;
                 }
-                rpta = true;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                string error = e.Message;
-                rpta = false;
+                // Manejar el error según tu lógica de aplicación
+                Console.WriteLine(ex.Message);
             }
 
-            return rpta;
+            return respuesta;
         }
 
-        public bool Editar(CategoriaModel oCategoria)
+        public bool Editar(CategoriaModel categoria)
         {
-            bool rpta;
+            bool respuesta = false;
 
             try
             {
-                var cn = new Conexion();
-
-                using (var conexion = new SqlConnection(cn.getCadenaSQL()))
+                using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    conexion.Open();
-                    SqlCommand cmd = new SqlCommand("SP_EditarCategoria", conexion);
-                    cmd.Parameters.AddWithValue("idCategoriaProducto", oCategoria.idCategoriaProducto);
-                    cmd.Parameters.AddWithValue("categoriaProducto", oCategoria.categoriaProducto);
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.ExecuteNonQuery();
+                    connection.Open();
+                    SqlCommand cmd = new SqlCommand("UPDATE Categoria SET categoriaProducto = @NombreCategoria WHERE idCategoriaProducto = @IdCategoria", connection);
+                    cmd.Parameters.AddWithValue("@IdCategoria", categoria.idCategoriaProducto);
+                    cmd.Parameters.AddWithValue("@NombreCategoria", categoria.categoriaProducto);
+                    int rows = cmd.ExecuteNonQuery();
+                    respuesta = rows > 0;
                 }
-                rpta = true;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                string error = e.Message;
-                rpta = false;
+                // Manejar el error según tu lógica de aplicación
+                Console.WriteLine(ex.Message);
             }
 
-            return rpta;
+            return respuesta;
         }
 
-        public bool Eliminar(int idCategoriaProducto)
+        public bool Eliminar(int id)
         {
-            bool rpta;
+            bool respuesta = false;
 
             try
             {
-                var cn = new Conexion();
-
-                using (var conexion = new SqlConnection(cn.getCadenaSQL()))
+                using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    conexion.Open();
-                    SqlCommand cmd = new SqlCommand("SP_EliminarCategoria", conexion);
-                    cmd.Parameters.AddWithValue("idCategoriaProducto", idCategoriaProducto);
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.ExecuteNonQuery();
+                    connection.Open();
+                    SqlCommand cmd = new SqlCommand("DELETE FROM Producto WHERE idProducto = @IdProducto", connection);
+                    cmd.Parameters.AddWithValue("@IdProducto", id);
+                    int rows = cmd.ExecuteNonQuery();
+                    respuesta = rows > 0;
                 }
-                rpta = true;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                string error = e.Message;
-                rpta = false;
+                // Manejar el error según tu lógica de aplicación
+                Console.WriteLine(ex.Message);
             }
 
-            return rpta;
+            return respuesta;
         }
     }
 }
