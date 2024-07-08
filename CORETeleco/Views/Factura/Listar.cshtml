@@ -9,43 +9,45 @@
         Lista de Facturas
     </div>
     <div class="card-body">
-        <a asp-action="Guardar" asp-controller="Factura" class="btn btn-success"><i class="bi bi-plus-circle"></i> Crear Nuevo</a>
-        <hr />
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Fecha</th>
-                    <th>Método de Pago</th>
-                    <th>Impuestos</th>
-                    <th>Total</th>
-                    <th>Cantidad</th>
-                    <th>Sucursal</th>
-                    <th>Cliente</th>
-                    <th>Empleado</th>
-                    <th>Tipo de Comprobante</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
+        <div class="table-responsive">
+            <a asp-action="Guardar" asp-controller="Factura" class="btn btn-success"><i class="bi bi-plus-circle"></i> Crear Nuevo</a>
+            <hr />
+            <table class="table table-bordered">
+                <thead>
                     <tr>
-                        <td>@item.fechaFactura.ToString("yyyy-MM-dd")</td>
-                        <td>@item.metodoPagoFactura</td>
-                        <td>@item.impuestosFactura</td>
-                        <td>@item.totalFactura</td>
-                        <td>@item.cantidadFactura</td>
-                        <td>@item.idSucursal</td>
-                        <td>@item.idCliente</td>
-                        <td>@item.idEmpleado</td>
-                        <td>@item.idTipoComprobante</td>
-                        <td>
-                            <a asp-action="Editar" asp-controller="Factura" class="btn btn-primary btn-sm" asp-route-idFactura="@item.idFactura">Editar</a>
-                            <a asp-action="Eliminar" asp-controller="Factura" class="btn btn-danger btn-sm" asp-route-idFactura="@item.idFactura">Eliminar</a>
-                        </td>
+                        <th>Fecha</th>
+                        <th>Método de Pago</th>
+                        <th>Impuestos</th>
+                        <th>Total</th>
+                        <th>Cantidad</th>
+                        <th>Sucursal</th>
+                        <th>Cliente</th>
+                        <th>Empleado</th>
+                        <th>Tipo de Comprobante</th>
+                        <th></th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.fechaFactura.ToString("yyyy-MM-dd")</td>
+                            <td>@item.metodoPagoFactura</td>
+                            <td>@item.impuestosFactura</td>
+                            <td>@item.totalFactura</td>
+                            <td>@item.cantidadFactura</td>
+                            <td>@item.idSucursal</td>
+                            <td>@item.idCliente</td>
+                            <td>@item.idEmpleado</td>
+                            <td>@item.idTipoComprobante</td>
+                            <td>
+                                <a asp-action="Editar" asp-controller="Factura" class="btn btn-primary btn-sm" asp-route-idFactura="@item.idFactura">Editar</a>
+                                <a asp-action="Eliminar" asp-controller="Factura" class="btn btn-danger btn-sm" asp-route-idFactura="@item.idFactura">Eliminar</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>

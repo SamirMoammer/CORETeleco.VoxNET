@@ -17,41 +17,41 @@
             </div>
             <div class="mb-3">
                 <label class="form-label">Método de Pago</label>
-                <input asp-for="metodoPagoFactura" type="text" class="form-control">
+                <input asp-for="metodoPagoFactura" class="form-control">
                 <span asp-validation-for="metodoPagoFactura" class="text-danger"></span>
             </div>
             <div class="row mb-3">
                 <div class="col">
                     <label class="form-label">Cliente</label>
-                    <input asp-for="idCliente" type="text" class="form-control">
+                    <input asp-for="idCliente" class="form-control">
                     <span asp-validation-for="idCliente" class="text-danger"></span>
                 </div>
                 <div class="col">
                     <label class="form-label">Empleado</label>
-                    <input asp-for="idEmpleado" type="text" class="form-control">
+                    <input asp-for="idEmpleado" class="form-control">
                     <span asp-validation-for="idEmpleado" class="text-danger"></span>
                 </div>
             </div>
             <div class="mb-3">
                 <label class="form-label">Sucursal</label>
-                <input asp-for="idSucursal" type="text" class="form-control">
+                <input asp-for="idSucursal" class="form-control">
                 <span asp-validation-for="idSucursal" class="text-danger"></span>
             </div>
             <div class="mb-3">
                 <label class="form-label">Tipo de Comprobante</label>
-                <input asp-for="idTipoComprobante" type="text" class="form-control">
+                <input asp-for="idTipoComprobante" class="form-control">
                 <span asp-validation-for="idTipoComprobante" class="text-danger"></span>
             </div>
             <hr />
             <h5>Detalle de Factura</h5>
             <div class="mb-3">
                 <label class="form-label">Impuestos</label>
-                <input asp-for="impuestosFactura" type="text" class="form-control">
+                <input asp-for="impuestosFactura" class="form-control">
                 <span asp-validation-for="impuestosFactura" class="text-danger"></span>
             </div>
             <div class="mb-3">
                 <label class="form-label">Total</label>
-                <input asp-for="totalFactura" type="text" class="form-control">
+                <input asp-for="totalFactura" class="form-control">
                 <span asp-validation-for="totalFactura" class="text-danger"></span>
             </div>
             <button type="submit" class="btn btn-primary">Guardar</button>
