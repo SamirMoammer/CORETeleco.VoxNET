@@ -1,23 +1,23 @@
 ﻿@model List<CORETeleco.Models.ProductoFacturaModel>
 @{
-    ViewData["Title"] = "Listar";
+    ViewData["Title"] = "Listar ProductoFactura";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="card">
     <div class="card-header">
-        Lista de Productos en Factura
+        Lista de Productos Facturados
     </div>
     <div class="card-body">
-        <a asp-action="Guardar" asp-controller="ProductoFactura" class="btn btn-success"><i class="bi bi-plus-circle"></i> Agregar Nuevo</a>
+        <a asp-action="Guardar" class="btn btn-success"><i class="bi bi-plus-circle"></i> Crear Nuevo</a>
         <hr />
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>ID Factura</th>
-                    <th>ID Producto</th>
+                    <th>IdFactura</th>
+                    <th>IdProducto</th>
                     <th>Cantidad</th>
-                    <th></th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -28,8 +28,8 @@
                         <td>@item.idProducto</td>
                         <td>@item.cantidad</td>
                         <td>
-                            <a asp-action="Editar" asp-controller="ProductoFactura" class="btn btn-primary btn-sm" asp-route-idFactura="@item.idFactura" asp-route-idProducto="@item.idProducto">Editar</a>
-                            <a asp-action="Eliminar" asp-controller="ProductoFactura" class="btn btn-danger btn-sm" asp-route-idFactura="@item.idFactura" asp-route-idProducto="@item.idProducto">Eliminar</a>
+                            <a asp-action="Editar" asp-route-idFactura="@item.idFactura" asp-route-idProducto="@item.idProducto" class="btn btn-primary btn-sm">Editar</a>
+                            <a asp-action="Eliminar" asp-route-idFactura="@item.idFactura" asp-route-idProducto="@item.idProducto" class="btn btn-danger btn-sm">Eliminar</a>
                         </td>
                     </tr>
                 }

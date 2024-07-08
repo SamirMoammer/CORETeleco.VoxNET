@@ -7,88 +7,88 @@ namespace CORETeleco.Controllers
 {
     public class ProductoController : Controller
     {
-        private readonly ProductoDatos _productoDatos = new ProductoDatos();
+        private readonly ProductoDatos _ProductoDatos = new ProductoDatos();
 
         public IActionResult Listar()
         {
-            List<ProductoModel> productos = _productoDatos.Listar();
-            return View(productos);
+            List<ProductoModel> Productos = _ProductoDatos.Listar();
+            return View(Productos);
         }
 
         public IActionResult Guardar()
         {
-            ViewBag.Categorias = _productoDatos.ObtenerCategorias();
+            ViewBag.Categorias = _ProductoDatos.ObtenerCategorias();
             return View();
         }
 
         [HttpPost]
-        public IActionResult Guardar(ProductoModel producto)
+        public IActionResult Guardar(ProductoModel Producto)
         {
             if (!ModelState.IsValid)
             {
-                ViewBag.Categorias = _productoDatos.ObtenerCategorias();
-                return View(producto);
+                ViewBag.Categorias = _ProductoDatos.ObtenerCategorias();
+                return View(Producto);
             }
 
-            bool respuesta = _productoDatos.Guardar(producto);
+            bool respuesta = _ProductoDatos.Guardar(Producto);
 
             if (respuesta)
                 return RedirectToAction("Listar");
             else
             {
-                ViewBag.Categorias = _productoDatos.ObtenerCategorias();
-                return View(producto);
+                ViewBag.Categorias = _ProductoDatos.ObtenerCategorias();
+                return View(Producto);
             }
         }
 
         public IActionResult Editar(int id)
         {
-            ProductoModel producto = _productoDatos.Obtener(id);
-            if (producto == null)
+            ProductoModel Producto = _ProductoDatos.Obtener(id);
+            if (Producto == null)
                 return NotFound();
 
-            ViewBag.Categorias = _productoDatos.ObtenerCategorias();
-            return View(producto);
+            ViewBag.Categorias = _ProductoDatos.ObtenerCategorias();
+            return View(Producto);
         }
 
         [HttpPost]
-        public IActionResult Editar(ProductoModel producto)
+        public IActionResult Editar(ProductoModel Producto)
         {
             if (!ModelState.IsValid)
             {
-                ViewBag.Categorias = _productoDatos.ObtenerCategorias();
-                return View(producto);
+                ViewBag.Categorias = _ProductoDatos.ObtenerCategorias();
+                return View(Producto);
             }
 
-            bool respuesta = _productoDatos.Editar(producto);
+            bool respuesta = _ProductoDatos.Editar(Producto);
 
             if (respuesta)
                 return RedirectToAction("Listar");
             else
             {
-                ViewBag.Categorias = _productoDatos.ObtenerCategorias();
-                return View(producto);
+                ViewBag.Categorias = _ProductoDatos.ObtenerCategorias();
+                return View(Producto);
             }
         }
 
         public IActionResult Eliminar(int id)
         {
-            ProductoModel producto = _productoDatos.Obtener(id);
-            if (producto == null)
+            ProductoModel Producto = _ProductoDatos.Obtener(id);
+            if (Producto == null)
                 return NotFound();
 
-            return View(producto);
+            return View(Producto);
         }
 
         [HttpPost]
-        public IActionResult Eliminar(ProductoModel producto)
+        public IActionResult Eliminar(ProductoModel Producto)
         {
-            bool respuesta = _productoDatos.Eliminar(producto.idProducto);
+            bool respuesta = _ProductoDatos.Eliminar(Producto.idProducto);
 
             if (respuesta)
                 return RedirectToAction("Listar");
             else
-                return View(producto);
+                return View(Producto);
         }
 
     }

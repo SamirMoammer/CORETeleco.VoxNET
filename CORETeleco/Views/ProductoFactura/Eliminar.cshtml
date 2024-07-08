@@ -1,22 +1,22 @@
 ﻿@model CORETeleco.Models.ProductoFacturaModel
 @{
-    ViewData["Title"] = "Eliminar";
+    ViewData["Title"] = "Eliminar ProductoFactura";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="card">
     <div class="card-header">
-        Eliminar Producto de Factura
+        Eliminar ProductoFactura
     </div>
     <div class="card-body">
-        <form asp-action="Eliminar" asp-controller="ProductoFactura" method="post">
-            <input asp-for="idFactura" type="hidden" class="form-control">
-            <input asp-for="idProducto" type="hidden" class="form-control">
+        <form asp-action="Eliminar" method="post">
+            <input asp-for="idFactura" type="hidden" />
+            <input asp-for="idProducto" type="hidden" />
             <div class="alert alert-danger" role="alert">
-                ¿Desea eliminar el producto de la factura?
+                ¿Desea eliminar el producto facturado con IdFactura: @Html.DisplayFor(model => model.idFactura) e IdProducto: @Html.DisplayFor(model => model.idProducto) ?
             </div>
             <button type="submit" class="btn btn-danger">Eliminar</button>
-            <a asp-action="Listar" asp-controller="ProductoFactura" asp-route-idFactura="@Model.idFactura" class="btn btn-warning">Volver a la lista</a>
+            <a asp-action="Listar" class="btn btn-warning">Volver a la lista</a>
         </form>
     </div>
 </div>

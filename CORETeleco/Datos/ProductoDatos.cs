@@ -85,12 +85,12 @@ public class ProductoDatos
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                SqlCommand cmd = new SqlCommand("INSERT INTO Producto (nombreProducto, descripcionProducto, precioProducto, disponibilidadProducto, idCategoriaProducto) VALUES (@NombreProducto, @DescripcionProducto, @PrecioProducto, @DisponibilidadProducto, @IdCategoriaProducto)", connection);
-                cmd.Parameters.AddWithValue("@NombreProducto", producto.nombreProducto);
-                cmd.Parameters.AddWithValue("@DescripcionProducto", producto.descripcionProducto);
-                cmd.Parameters.AddWithValue("@PrecioProducto", producto.precioProducto);
-                cmd.Parameters.AddWithValue("@DisponibilidadProducto", producto.disponibilidadProducto);
-                cmd.Parameters.AddWithValue("@IdCategoriaProducto", producto.idCategoriaProducto);
+                SqlCommand cmd = new SqlCommand("INSERT INTO Producto (nombreProducto, descripcionProducto, precioProducto, disponibilidadProducto, idCategoriaProducto) VALUES (@nombreProducto, @descripcionProducto, @precioProducto, @disponibilidadProducto, @idCategoriaProducto)", connection);
+                cmd.Parameters.AddWithValue("@nombreProducto", producto.nombreProducto);
+                cmd.Parameters.AddWithValue("@descripcionProducto", producto.descripcionProducto);
+                cmd.Parameters.AddWithValue("@precioProducto", producto.precioProducto);
+                cmd.Parameters.AddWithValue("@disponibilidadProducto", producto.disponibilidadProducto);
+                cmd.Parameters.AddWithValue("@idCategoriaProducto", producto.idCategoriaProducto);
                 int rows = cmd.ExecuteNonQuery();
                 respuesta = rows > 0;
             }
@@ -113,13 +113,13 @@ public class ProductoDatos
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                SqlCommand cmd = new SqlCommand("UPDATE Producto SET nombreProducto = @NombreProducto, descripcionProducto = @DescripcionProducto, precioProducto = @PrecioProducto, disponibilidadProducto = @DisponibilidadProducto, idCategoriaProducto = @IdCategoriaProducto WHERE idProducto = @IdProducto", connection);
-                cmd.Parameters.AddWithValue("@IdProducto", producto.idProducto);
-                cmd.Parameters.AddWithValue("@NombreProducto", producto.nombreProducto);
-                cmd.Parameters.AddWithValue("@DescripcionProducto", producto.descripcionProducto);
-                cmd.Parameters.AddWithValue("@PrecioProducto", producto.precioProducto);
-                cmd.Parameters.AddWithValue("@DisponibilidadProducto", producto.disponibilidadProducto);
-                cmd.Parameters.AddWithValue("@IdCategoriaProducto", producto.idCategoriaProducto);
+                SqlCommand cmd = new SqlCommand("UPDATE Producto SET nombreProducto = @nombreProducto, descripcionProducto = @descripcionProducto, precioProducto = @precioProducto, disponibilidadProducto = @disponibilidadProducto, idCategoriaProducto = @idCategoriaProducto WHERE idProducto = @idProducto", connection);
+                cmd.Parameters.AddWithValue("@idProducto", producto.idProducto);
+                cmd.Parameters.AddWithValue("@nombreProducto", producto.nombreProducto);
+                cmd.Parameters.AddWithValue("@descripcionProducto", producto.descripcionProducto);
+                cmd.Parameters.AddWithValue("@precioProducto", producto.precioProducto);
+                cmd.Parameters.AddWithValue("@disponibilidadProducto", producto.disponibilidadProducto);
+                cmd.Parameters.AddWithValue("@idCategoriaProducto", producto.idCategoriaProducto);
                 int rows = cmd.ExecuteNonQuery();
                 respuesta = rows > 0;
             }
@@ -142,8 +142,8 @@ public class ProductoDatos
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                SqlCommand cmd = new SqlCommand("DELETE FROM Producto WHERE idProducto = @IdProducto", connection);
-                cmd.Parameters.AddWithValue("@IdProducto", id);
+                SqlCommand cmd = new SqlCommand("DELETE FROM Producto WHERE idProducto = @idProducto", connection);
+                cmd.Parameters.AddWithValue("@idProducto", id);
                 int rows = cmd.ExecuteNonQuery();
                 respuesta = rows > 0;
             }
